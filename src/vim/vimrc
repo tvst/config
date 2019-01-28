@@ -1,0 +1,310 @@
+" Author: tvst
+" Updated: 2019-01-12
+
+" Package manager {{{1
+
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'                " The package manager itself
+
+Plugin 'Shougo/vimproc.vim'               " Interactive command execution
+Plugin 'editorconfig/editorconfig-vim'    " Add support for editorconfig files
+Plugin 'epeli/slimux'                     " Tmux support
+Plugin 'fatih/vim-go'                     " Go-lang helpers for vim
+Plugin 'godlygeek/tabular'                " Aligns tables, etc.
+Plugin 'gregsexton/gitv'                  " Gitk in vim
+Plugin 'jelera/vim-javascript-syntax'     " Better JS support
+Plugin 'kien/rainbow_parentheses.vim'     " Makes parenthesis levels visible
+Plugin 'majutsushi/tagbar'                " Class outline navigator
+Plugin 'nathanaelkane/vim-indent-guides'  " Makes indentation visible
+Plugin 'rhysd/vim-clang-format'           " Code formatter for C-style languages
+Plugin 'rking/ag.vim'                     " Helper for searching files with Ag
+Plugin 'sjl/gundo.vim'                    " Undo tree navigator
+Plugin 'sjl/splice.vim.git'               " Better 3-way diff
+Plugin 'tpope/vim-abolish'                " Case-smart find-and-replace
+Plugin 'tpope/vim-commentary'             " Helper for dealing with comments
+Plugin 'tpope/vim-fugitive'               " Git helper
+Plugin 'tpope/vim-rhubarb'                " Replaces surrounding brackets
+Plugin 'tpope/vim-surround'               " Replaces surrounding brackets
+Plugin 'vim-scripts/Align'                " Aligns tables, etc.
+Plugin 'vim-scripts/ShowMarks'            " Shows marks
+Plugin 'w0rp/ale'                         " Linter
+Plugin 'will133/vim-dirdiff'              " Helps diff folders
+
+
+call vundle#end()
+
+
+
+" Basic settings {{{1
+
+" The usual.
+set hidden                            " Do not complain when switching buffers
+set t_Co=256                          " Set 256 color terminal
+set shell=/bin/bash                   " Set ! to bash, since I'm using non-POSIX fish
+filetype plugin on                    " Enable loading files from ftplugin/
+syntax on                             " File detection and syntax hilighting
+
+" Indentation.
+"set autoindent                       " Don't set these,
+"set smartindent                      " ...they don't work the way you'd expect.
+filetype indent on                    " Enable filetype-based indent
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab                         " Use spaces for tabs
+
+" Saving files.
+"set nofsync                          " Don't set this. Stops flushing after save. Bad idea.
+set nobackup                          " Speed up saving: do not do backup, save, delete backup
+
+" Parenthesis matching.
+set showmatch                         " Shows matching parenthesis
+set matchtime=10                      " How many ms to show the matching parenthesis
+
+" Navigation.
+set whichwrap+=<,>,[,]                " Allow left-right keys to go around breaks
+set scrolloff=3                       " Always show 3 lines above/below cursor when scrolling
+set sidescrolloff=3                   " Always show 10 chars before/after cursor when scrolling sideways
+
+" Interface.
+set background=dark                   " Hint that the colorscheme being used is dark
+"set termguicolors                     " Support true-color
+set number                            " Show line numbers
+set ruler                             " Show current line and column on status bar
+set nocursorline                        " Highlights the current line
+set laststatus=2                      " Always show the status line
+set selectmode=mouse,key              " Allow going to selectmode using mouse (in GVim)
+set fillchars=fold:🞌,diff:\ ,vert:\ ,stlnc:\ ,stl:\ 
+set diffopt+=vertical                 " Make diffs always open with vertical splits
+" Show Git branch in status line:
+"set statusline=%<%f\ %h%m%r%=%{FugitiveHead()}\ \ %-14.(%l,%c%V%)\ %P
+
+" Invisible chars.
+set list                              " Show invisible chars
+set listchars=tab:\│\ ,trail:␣,nbsp:␣,extends:…,precedes:…
+
+" Searching.
+set incsearch                         " Incremental search
+set ignorecase                        " Set this to ignore case in searches
+set smartcase                         " ...except when the search has an uppercase letter
+set complete=.,w,b,t,i                " Which files to search for ctrl-p/ctrl-n completion
+set nohlsearch " tmp
+
+" Line wrap.
+set nowrap                            " Don't wrap lines unless there's an actual newline character
+set formatoptions=q                   " See below: (NOTE: had to remove j since it's not compatible with 7.3
+"set formatoptions+=q                 " q = Allow use of gq to autowrap comments
+"set formatoptions+=j                 " j = Remove comment leader when joining lines
+set linebreak                         " When wrapping with gq, break lines at word boundaries
+set textwidth=80                      " Max width (see ftplugins)
+set colorcolumn=81                    " Column that should be colored differently (see ftplugin)
+
+" Browsing and opening files.
+set path=.,./**,                      " Where to search for files when using the find and gf commands
+set wildmenu                          " Make Tab completion use a statusbar menu
+set wildmode=full                     " Customize Tab completion
+set wildignore=*.o,*.obj,*.bak,*.exe,*.pyc  " Ignore these files
+set wildignorecase                    " Ignore case for wild completion
+
+" Editing.
+set backspace=start,indent            " Allow backspace to work over start of insert, and over indents, but not EOLs
+set timeoutlen=300                    " Make backslash shortcuts faster
+
+" Folding.
+set foldcolumn=0                      " Don't show fold column on left
+set foldlevelstart=10000              " Don't fold on start
+set foldmethod=indent
+set foldopen=hor,mark,quickfix,search,tag,undo
+set foldtext=substitute(getline(v:foldstart),'/\\*\\\|\\*/\\\|{{{\\d\\=','','g')
+
+" NetRW file navigator
+let g:netrw_liststyle=0             " Use narrow navigation
+let g:netrw_winsize=-28             " Width = 28px (negative means absolute)
+let g:netrw_banner=0                " Hide info banner
+let g:netrw_hide=1                  " Hide dotfiles by default. Use gh to toggle.
+
+" Better markdown hilighting
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+let g:markdown_fenced_languages= ['html', 'python', 'bash=sh']
+let g:markdown_syntax_conceal=0
+
+
+
+" Plugin settings {{{1
+
+" ShowMarks plugin settings.
+let g:showmarks_enable=0
+let g:showmarks_textlower=" "
+let g:showmarks_textupper=" "
+let g:showmarks_textother=" "
+let g:showmarks_include="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ."
+
+" Indent guides plugin options.
+let g:indent_guides_auto_colors=0
+
+" Make GUndo use Python3
+let g:gundo_prefer_python3=1
+
+" Delete Fugitive buffers when you leave them.
+autocmd BufReadPost fugitive://* set bufhidden=delete
+" Show quickfix window after Fugitive commands that put stuff there.
+autocmd QuickFixCmdPost *grep* cwindow
+
+
+" Functions {{{1
+
+" Better netrw sidebar
+let g:NetrwIsOpen=0
+function! ToggleNetrwSidebar()
+    if g:NetrwIsOpen
+        let i=bufnr("$")
+        while (i >= 1)
+            if (getbufvar(i, "&filetype") == "netrw")
+                silent exe "bwipeout " . i
+            endif
+            let i-=1
+        endwhile
+        let g:NetrwIsOpen=0
+    else
+        let g:NetrwIsOpen=1
+        silent :let g:netrw_liststyle=3
+        silent :Lexplore
+        silent :let g:netrw_liststyle=0
+    endif
+endfunction
+
+
+" Make tabs look like [tab number][:number of panes] [filename]
+" (This is about UI tabs, not the tab character!)
+function! MyTabLine()
+  let s=''
+  for i in range(tabpagenr('$'))
+    let tabnr=i + 1 " range() starts at 0
+    let winnr=tabpagewinnr(tabnr)
+    let buflist=tabpagebuflist(tabnr)
+    let bufnr=buflist[winnr - 1]
+    let bufname=fnamemodify(bufname(bufnr), ':t')
+
+    let s .= '%' . tabnr . 'T'
+    let s .= (tabnr == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
+
+    " Show tab number
+    "let s .= ' ' . tabnr
+
+    " Show buffer name
+    let s .= empty(bufname) ? 'no name' : bufname
+
+    " Show "+" sign if modified
+    let bufmodified=getbufvar(bufnr, "&mod")
+    if bufmodified | let s .= '+' | endif
+
+    " Show window number
+    "let n=tabpagewinnr(tabnr,'$')
+    "if n > 1 | let s .= ':' . n | endif
+
+    let s .= '  '
+  endfor
+  let s .= '%#TabLineFill#'
+  return s
+endfunction
+set tabline=%!MyTabLine()
+
+
+" Custom key mappings {{{1
+
+" Turn on/off search hilight
+map <silent> <leader>h :set hlsearch!<cr>
+
+" Enter/leave paste mode
+map <silent> <leader>p :set paste!<cr>:set paste?<cr>
+
+" Line numbering mappings
+map <silent> <leader>n :set number!<cr>
+map <silent> <leader>nn :set relativenumber!<cr>
+
+" Find lines longer than 80 or 100 chars
+map <silent> <leader>8 /\%>80v.\+<cr>
+map <silent> <leader>0 /\%>100v.\+<cr>
+
+" Cursor mappings
+map <silent> <leader>l :set cursorline!<cr>
+
+" Mappings for diffs
+"nmap <silent> <C-k> [c  " Commented in favor of ALE mappings
+"nmap <silent> <C-j> ]c  " Commented in favor of ALE mappings
+
+" ALE linter mappins
+map <silent> <leader>a :ALEToggle<cr>
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+"let g:ale_set_loclist=0  " Turn off 'LocList'
+"let g:ale_set_quickfix=1  " Turn on 'Quickfix' instead
+let g:ale_enabled=0
+let g:ale_lint_on_text_changed='never'
+let g:ale_lint_on_enter=1
+let g:ale_lint_on_save=1
+
+" Exploring files and folders (netrw)
+map <silent> <leader>e :Explore<CR>
+map <silent> <leader>t :call ToggleNetrwSidebar()<CR>
+
+" Pressing Ctrl-P once picks the first autocomplete option.
+"inoremap <c-p> <esc>:set completeopt=<cr>a<c-p>
+"inoremap <c-n> <esc>:set completeopt=<cr>a<c-n>
+
+" Pressing Ctrl-P twice picks shows the menu.
+"inoremap <c-p><c-p> <esc>:set completeopt=menu,preview<cr>a<c-p>
+"inoremap <c-n><c-n> <esc>:set completeopt=menu,preview<cr>a<c-n>
+
+" Show/hide Gundo plugin sidebar
+map <silent> <leader>u :GundoToggle<cr>
+
+" Show/hide ShowMarks plugin markers
+map <silent> <leader>m :ShowMarksToggle<cr>
+
+" Slimux plugin mappings
+map <silent> <leader>s :SlimuxREPLSendSelection<cr>
+map <silent> <leader>S :SlimuxREPLConfigure<cr>
+
+" Indentguides plugin mappings
+map <silent> <leader>i :IndentGuidesToggle<cr>
+
+" Show outline sidebar
+map <silent> <leader>o :Tagbar<cr>
+
+" Keymaps for Substitute command (delete and paste).
+vmap S "_dP
+nmap SS "_ddP
+nmap Saw "_dawP
+nmap Siw "_diwP
+nmap Sw  "_diwP
+nmap Sap "_dapP
+nmap Sip "_dipP
+nmap Sp  "_dipP
+
+" Remove Ex-mode
+map Q <Nop>
+
+" In Neovim, make ESC leave terminal mode.
+tnoremap <Esc> <C-\><C-n>
+
+" Command to auto-prettify JSON code.
+command! -range -nargs=0 -bar PrettifyJson <line1>,<line2>!python -m json.tool
+
+" Run commands silently
+command! -nargs=1 Silent execute ':silent !'.<q-args> | execute ':redraw!'
+
+" Run Python file with F5
+nmap <silent> <F5> :w<cr>:Silent python %<cr>
+
+
+
+" Color scheme {{{1
+" For some reason this doesn't work unless it's at the end :-/
+"colorscheme jellybeans
+colorscheme neoneon
+colorscheme minichrome

@@ -1,0 +1,1 @@
+/home/tvst/.vimrc

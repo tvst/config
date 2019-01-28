@@ -1,0 +1,7 @@
+set guifont=DejaVu\ Sans\ Mono\ 14
+set columns=120
+set lines=40
+
+" Save some screen space (if your screen is small)
+set guioptions-=m
+set guioptions-=T
