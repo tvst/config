@@ -1,1 +1,1 @@
-/home/tvst/.vimrc
+source ~/.vimrc
