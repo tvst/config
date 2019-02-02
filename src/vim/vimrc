@@ -1,5 +1,5 @@
 " Author: tvst
-" Updated: 2019-01-12
+" Updated: 2019-01-19
 
 " Package manager {{{1
 
@@ -78,7 +78,7 @@ set ruler                             " Show current line and column on status b
 set nocursorline                        " Highlights the current line
 set laststatus=2                      " Always show the status line
 set selectmode=mouse,key              " Allow going to selectmode using mouse (in GVim)
-set fillchars=fold:🞌,diff:\ ,vert:\ ,stlnc:\ ,stl:\ 
+set fillchars=fold:⠒,diff:\ ,vert:\ ,stlnc:\ ,stl:\ 
 set diffopt+=vertical                 " Make diffs always open with vertical splits
 " Show Git branch in status line:
 "set statusline=%<%f\ %h%m%r%=%{FugitiveHead()}\ \ %-14.(%l,%c%V%)\ %P
