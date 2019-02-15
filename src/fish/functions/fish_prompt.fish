@@ -26,19 +26,26 @@ function fish_prompt --description "Write out the prompt"
 
   # Config top line.
   echo
-  set_color normal
   set_color $fish_color_cwd
 
+  # Write time.
+  echo -n (date +%R:%S)' '
+
+  # Write current Pyenv
+  set -l pyenv_name (pyenv local ^ /dev/null)
+  if test $status -eq 0
+    echo -n '⊙'$pyenv_name' '
+  end
+
   # Write git prompt.
-  __fish_git_prompt '%s '
+  __fish_git_prompt '⎇%s '
 
   # Write previous status code, if not 0.
   if not test $last_status -eq 0
     echo -n errcode:$last_status' '
   end
 
-  # Write time.
-  echo -n (date +%R:%S)
+  set_color normal
 
   # Vi mode.
   #switch $fish_bind_mode
@@ -53,7 +60,7 @@ function fish_prompt --description "Write out the prompt"
   # New line.
   echo
 
-  # Special prompt
+  # Color prompt, with telescoping if needed.
   set -l pre (echo -n $USER'@'$__fish_prompt_hostname':')
   set -l path (echo $PWD | sed -e "s|^$HOME|~|")
   set -l shortpath (prompt_pwd)
