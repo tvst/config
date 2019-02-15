@@ -24,7 +24,7 @@ nvim:
 tmux:
 	# Don't use -r. See above.
 	rm -f ~/.tmux.conf
-	ln -s ${PWD}/src/tmux.conf ~/.tmux.conf	
+	ln -s ${PWD}/src/tmux.conf ~/.tmux.conf
 
 .PHONY: bash
 bash:
