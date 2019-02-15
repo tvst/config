@@ -12,6 +12,7 @@ alias c 'ranger-cd'
 alias t 'tmux attach; or tmux'
 alias v 'nvim'
 alias httpserver 'python -m http.server'
+alias e 'v -c :Explore'
 
 # Environment variables
 
