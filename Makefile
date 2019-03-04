@@ -2,7 +2,7 @@
 new-machine-setup: all vundle
 
 .PHONY: all
-all: vim nvim tmux fish bash bin
+all: vim nvim tmux fish bash bin fff
 
 .PHONY: vim
 vim:
@@ -41,9 +41,15 @@ fish:
 vundle:
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-
 .PHONY: bin
 bin:
 	@# Don't use -r. See above.
 	rm -f ~/.bin
 	ln -s ${PWD}/src/bin ~/.bin
+
+.PHONY: fff
+fff:
+	git clone https://github.com/dylanaraps/fff.git
+	cd fff; \
+		sudo make install
+	rm -rf fff
