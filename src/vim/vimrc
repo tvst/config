@@ -86,6 +86,7 @@ set laststatus=2                      " Always show the status line
 set selectmode=mouse,key              " Allow going to selectmode using mouse (in GVim)
 set fillchars=fold:⠒,diff:\ ,vert:\ ,stlnc:\ ,stl:\ 
 set diffopt+=vertical                 " Make diffs always open with vertical splits
+set diffopt+=hiddenoff                " Turn off diff mode for buffers when they get hidden
 " Show Git branch in status line:
 "set statusline=%<%f\ %h%m%r%=%{FugitiveHead()}\ \ %-14.(%l,%c%V%)\ %P
 
@@ -259,7 +260,19 @@ let g:ale_lint_on_save=1
 
 " Exploring files and folders (netrw)
 map <silent> <leader>e :Explore<CR>
-map <silent> <leader>t :call ToggleNetrwSidebar()<CR>
+map <silent> <leader>t :let g:netrw_liststyle=3<CR>:Lexplore<CR>:let g:netrw_liststyle=0<CR>
+"map <silent> <leader>t :call ToggleNetrwSidebar()<CR>
+
+" TODO: Make NetRW mappings sane
+"augroup netrw_mapping
+"    autocmd!
+"    autocmd filetype netrw call NetrwMapping()
+"augroup END
+"
+"function! NetrwMapping()
+"    noremap <buffer> x y
+"    noremap <buffer> z w
+"endfunction
 
 " Pressing Ctrl-P once picks the first autocomplete option.
 "inoremap <c-p> <esc>:set completeopt=<cr>a<c-p>
