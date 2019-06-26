@@ -16,10 +16,12 @@ Plugin 'epeli/slimux'                     " Tmux support
 Plugin 'fatih/vim-go'                     " Go-lang helpers for vim
 Plugin 'godlygeek/tabular'                " Aligns tables, etc.
 Plugin 'gregsexton/gitv'                  " Gitk in vim
-Plugin 'jelera/vim-javascript-syntax'     " Better JS support
+Plugin 'jsfaint/gen_tags.vim'             " Generates tags for files
 Plugin 'kien/rainbow_parentheses.vim'     " Makes parenthesis levels visible
-Plugin 'majutsushi/tagbar'                " Class outline navigator
+Plugin 'leafgarland/typescript-vim'       " TypeScript syntax hilighting
+Plugin 'majutsushi/tagbar'                " Class outline (tags) navigator
 Plugin 'nathanaelkane/vim-indent-guides'  " Makes indentation visible
+Plugin 'peitalin/vim-jsx-typescript'      " TypeScript-JSX syntax hilighting
 Plugin 'rhysd/vim-clang-format'           " Code formatter for C-style languages
 Plugin 'rking/ag.vim'                     " Helper for searching files with Ag
 Plugin 'sjl/gundo.vim'                    " Undo tree navigator
@@ -34,6 +36,10 @@ Plugin 'vim-scripts/ShowMarks'            " Shows marks
 Plugin 'w0rp/ale'                         " Linter
 Plugin 'will133/vim-dirdiff'              " Helps diff folders
 
+"Plugin 'mxw/vim-jsx'                      " JSX syntax hilighting
+"Plugin 'HerringtonDarkholme/yats.vim'     " TypeScript syntax hilighting  -- Too crazy
+"Plugin 'jelera/vim-javascript-syntax'     " Better JS support  -- Too crazy
+"Plugin 'othree/yajs.vim'                  " Better JS syntax hilighting  -- This is fine
 
 call vundle#end()
 
@@ -132,6 +138,9 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 let g:markdown_fenced_languages= ['html', 'python', 'bash=sh']
 let g:markdown_syntax_conceal=0
 
+" Hilight JS files as TS
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+autocmd BufNewFile,BufRead *.ts,*.js set filetype=typescript
 
 
 " Plugin settings {{{1
