@@ -62,6 +62,9 @@ set __fish_git_prompt_char_stashstate 's'
 set __fish_git_prompt_char_untrackedfiles 'u'
 
 # PyEnv
-set -gx PATH "/home/tvst/.pyenv/bin" $PATH
+set -gx PATH '/home/tvst/.pyenv/bin' $PATH
 status --is-interactive; and source (pyenv init -|psub)
 status --is-interactive; and source (pyenv virtualenv-init -|psub)
+
+# Node
+set -gx NODE_OPTIONS '--max_old_space_size=4096'
