@@ -71,4 +71,3 @@ function! SlimuxEscape_python(text)
 "
   endif
 endfunction
-
