@@ -32,10 +32,10 @@ function fish_prompt --description "Write out the prompt"
   echo -n (date +%R:%S)' '
 
   # Write current Pyenv
-  set -l pyenv_name (pyenv local ^ /dev/null)
-  if test $status -eq 0
-    echo -n '⊙'$pyenv_name' '
-  end
+  # set -l pyenv_name (pyenv local ^ /dev/null)
+  # if test $status -eq 0
+  #   echo -n '⊙'$pyenv_name' '
+  # end
 
   # Write git prompt.
   __fish_git_prompt '⎇%s '
