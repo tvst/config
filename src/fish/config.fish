@@ -1,26 +1,25 @@
 # Aliases
 
-alias ack 'ack-grep'
 alias ls 'ls --color=auto'
 alias l 'ls -CF'
 alias L 'ls -A'
 alias ll 'ls -lF'
 alias LL 'ls -alF'
-alias p 'prodaccess -g'
 alias r 'ranger'
 alias c 'ranger-cd'
 alias t 'tmux attach; or tmux'
 alias v 'nvim'
 alias e 'v -c :Explore'
+alias o 'xdg-open'
 
 # Environment variables
-
-set -gx PATH /home/tvst/.bin /home/tvst/.cargo/bin $PATH
 
 set -gx fish_greeting
 if test $TERM != 'screen-256color'
   set -gx TERM xterm-256color
 end
+
+set -gx ANDROID_HOME /home/tvst/.app/Android/Sdk
 
 set -gx EDITOR nvim
 set -gx DIFF nvimdiff
@@ -62,9 +61,14 @@ set __fish_git_prompt_char_stashstate 's'
 set __fish_git_prompt_char_untrackedfiles 'u'
 
 # PyEnv
-set -gx PATH '/home/tvst/.pyenv/bin' $PATH
-status --is-interactive; and source (pyenv init -|psub)
-status --is-interactive; and source (pyenv virtualenv-init -|psub)
+# set -gx PATH '/home/tvst/.pyenv/bin' $PATH
+# status --is-interactive; and source (pyenv init -|psub)
+# status --is-interactive; and source (pyenv virtualenv-init -|psub)
 
 # Node
 set -gx NODE_OPTIONS '--max_old_space_size=4096'
+
+# More PATH folders
+set -gx PATH /home/tvst/.app/flutter/bin $PATH
+set -gx PATH /home/tvst/.cargo/bin $PATH
+set -gx PATH /home/tvst/.bin $PATH
