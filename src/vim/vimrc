@@ -10,39 +10,25 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'                " The package manager itself
 
-Plugin 'Shougo/vimproc.vim'               " Interactive command execution
 Plugin 'editorconfig/editorconfig-vim'    " Add support for editorconfig files
-Plugin 'epeli/slimux'                     " Tmux support
-Plugin 'fatih/vim-go'                     " Go-lang helpers for vim
-Plugin 'godlygeek/tabular'                " Aligns tables, etc.
-Plugin 'gregsexton/gitv'                  " Gitk in vim
-Plugin 'jsfaint/gen_tags.vim'             " Generates tags for files
-Plugin 'kien/rainbow_parentheses.vim'     " Makes parenthesis levels visible
-Plugin 'leafgarland/typescript-vim'       " TypeScript syntax hilighting
-Plugin 'majutsushi/tagbar'                " Class outline (tags) navigator
+Plugin 'junegunn/vim-easy-align'          " Aligns tables, etc
 Plugin 'nathanaelkane/vim-indent-guides'  " Makes indentation visible
-Plugin 'peitalin/vim-jsx-typescript'      " TypeScript-JSX syntax hilighting
-Plugin 'rhysd/vim-clang-format'           " Code formatter for C-style languages
 Plugin 'rking/ag.vim'                     " Helper for searching files with Ag
 Plugin 'sjl/gundo.vim'                    " Undo tree navigator
 Plugin 'sjl/splice.vim.git'               " Better 3-way diff
 Plugin 'tpope/vim-abolish'                " Case-smart find-and-replace
 Plugin 'tpope/vim-commentary'             " Helper for dealing with comments
 Plugin 'tpope/vim-fugitive'               " Git helper
-Plugin 'tpope/vim-rhubarb'                " Replaces surrounding brackets
-Plugin 'tpope/vim-surround'               " Replaces surrounding brackets
-Plugin 'vim-scripts/Align'                " Aligns tables, etc.
-Plugin 'vim-scripts/ShowMarks'            " Shows marks
+Plugin 'tpope/vim-tbone'                  " Case-smart find-and-replace
 Plugin 'w0rp/ale'                         " Linter
 Plugin 'will133/vim-dirdiff'              " Helps diff folders
 
-"Plugin 'mxw/vim-jsx'                      " JSX syntax hilighting
-"Plugin 'HerringtonDarkholme/yats.vim'     " TypeScript syntax hilighting  -- Too crazy
-"Plugin 'jelera/vim-javascript-syntax'     " Better JS support  -- Too crazy
-"Plugin 'othree/yajs.vim'                  " Better JS syntax hilighting  -- This is fine
+Plugin 'fatih/vim-go'                     " Go-lang helpers for vim
+Plugin 'leafgarland/typescript-vim'       " TypeScript syntax hilighting
+Plugin 'peitalin/vim-jsx-typescript'      " TypeScript-JSX syntax hilighting
+Plugin 'rhysd/vim-clang-format'           " Code formatter for C-style languages
 
 call vundle#end()
-
 
 
 " Basic settings {{{1
@@ -162,31 +148,13 @@ let g:gundo_prefer_python3=1
 " Delete Fugitive buffers when you leave them.
 autocmd BufReadPost fugitive://* set bufhidden=delete
 " Show quickfix window after Fugitive commands that put stuff there.
-autocmd QuickFixCmdPost *grep* cwindow
+autocmd QuickFixCmdPost *Ggrep* cwindow
 
 
 " Functions {{{1
 
 " Better netrw sidebar
 let g:NetrwIsOpen=0
-function! ToggleNetrwSidebar()
-    if g:NetrwIsOpen
-        let i=bufnr("$")
-        while (i >= 1)
-            if (getbufvar(i, "&filetype") == "netrw")
-                silent exe "bwipeout " . i
-            endif
-            let i-=1
-        endwhile
-        let g:NetrwIsOpen=0
-    else
-        let g:NetrwIsOpen=1
-        silent :let g:netrw_liststyle=3
-        silent :Lexplore
-        silent :let g:netrw_liststyle=0
-    endif
-endfunction
-
 
 " Make tabs look like [tab number][:number of panes] [filename]
 " (This is about UI tabs, not the tab character!)
@@ -226,6 +194,21 @@ set tabline=%!MyTabLine()
 
 " Custom key mappings {{{1
 
+" Easier access to common commands
+map <leader>b :b 
+map <leader>q :q<cr>
+map <leader>t :tabe<cr>
+
+" Exploring files and folders (netrw)
+map <silent> <leader>e :Explore<cr>
+map <silent> <leader>ee :Lexplore<cr>
+
+" Easier access to quick-fix window
+map <silent> <leader>c :copen<cr>
+map <silent> <leader>cc :cclose<cr>
+map <silent> <leader>] :cnext<cr>
+map <silent> <leader>[ :cprevious<cr>
+
 " Turn on/off search hilight
 map <silent> <leader>h :set hlsearch!<cr>
 
@@ -244,8 +227,9 @@ map <silent> <leader>0 /\%>100v.\+<cr>
 map <silent> <leader>l :set cursorline!<cr>
 
 " Mappings for diffs
-"nmap <silent> <C-k> [c  " Commented in favor of ALE mappings
-"nmap <silent> <C-j> ]c  " Commented in favor of ALE mappings
+map <silent> <leader>d :diffthis<cr>
+map <silent> <leader>du :diffupdate<cr>
+map <silent> <leader>dd :diffoff<cr>
 
 " ALE linter mappins
 map <silent> <leader>a :ALEToggle<cr>
@@ -258,48 +242,21 @@ let g:ale_lint_on_text_changed='never'
 let g:ale_lint_on_enter=1
 let g:ale_lint_on_save=1
 
-" Exploring files and folders (netrw)
-map <silent> <leader>e :Explore<CR>
-map <silent> <leader>t :let g:netrw_liststyle=3<CR>:Lexplore<CR>:let g:netrw_liststyle=0<CR>
-"map <silent> <leader>t :call ToggleNetrwSidebar()<CR>
-
-" TODO: Make NetRW mappings sane
-"augroup netrw_mapping
-"    autocmd!
-"    autocmd filetype netrw call NetrwMapping()
-"augroup END
-"
-"function! NetrwMapping()
-"    noremap <buffer> x y
-"    noremap <buffer> z w
-"endfunction
-
-" Pressing Ctrl-P once picks the first autocomplete option.
-"inoremap <c-p> <esc>:set completeopt=<cr>a<c-p>
-"inoremap <c-n> <esc>:set completeopt=<cr>a<c-n>
-
-" Pressing Ctrl-P twice picks shows the menu.
-"inoremap <c-p><c-p> <esc>:set completeopt=menu,preview<cr>a<c-p>
-"inoremap <c-n><c-n> <esc>:set completeopt=menu,preview<cr>a<c-n>
-
 " Show/hide Gundo plugin sidebar
 map <silent> <leader>u :GundoToggle<cr>
-
-" Show/hide ShowMarks plugin markers
-map <silent> <leader>m :ShowMarksToggle<cr>
-
-" Slimux plugin mappings
-map <silent> <leader>s :SlimuxREPLSendSelection<cr>
-map <silent> <leader>S :SlimuxREPLConfigure<cr>
 
 " Indentguides plugin mappings
 map <silent> <leader>i :IndentGuidesToggle<cr>
 
-" Show outline sidebar
-map <silent> <leader>o :Tagbar<cr>
+" Fugitive plugin mappings
+map <silent> <leader>s :vertical Gstatus<cr>
+map <silent> <leader>g :Gdiff<cr>
+map <silent> <leader>o :Glog<cr>
+map <silent> <leader>oo :0Glog<cr>
 
 " Keymaps for Substitute command (delete and paste).
 vmap S "_dP
+vmap SS "_dP
 nmap SS "_ddP
 nmap Saw "_dawP
 nmap Siw "_diwP
@@ -317,16 +274,8 @@ tnoremap <Esc> <C-\><C-n>
 " Command to auto-prettify JSON code.
 command! -range -nargs=0 -bar PrettifyJson <line1>,<line2>!python -m json.tool
 
-" Run commands silently
-command! -nargs=1 Silent execute ':silent !'.<q-args> | execute ':redraw!'
-
-" Run Python file with F5
-nmap <silent> <F5> :w<cr>:Silent python %<cr>
-
-
 
 " Color scheme {{{1
 " For some reason this doesn't work unless it's at the end :-/
-"colorscheme jellybeans
 colorscheme neoneon
 colorscheme minichrome
