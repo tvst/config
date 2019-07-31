@@ -30,10 +30,13 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 export PATH="$PATH:/home/tvst/.bin"
 export PATH="$PATH:/home/tvst/.cargo/bin"  # Rust package manager
-export PATH="~/.pyenv/bin:$PATH"
+# export PATH="~/.pyenv/bin:$PATH"
 
 # Don't leave this uncommented!
-#source /home/tvst/.miniconda2/etc/profile.d/conda.sh
+if [ "$SOURCE_CONDA" == "TRUE" ]; then
+  echo '(Sourcing Conda)'
+  source /home/tvst/.miniconda2/etc/profile.d/conda.sh
+fi
 
 # Don't run magic Pyenv commands.
 #eval "$(pyenv init -)"
