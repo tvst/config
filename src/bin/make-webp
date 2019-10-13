@@ -1,0 +1,21 @@
+#!/bin/sh
+
+INPUT=$1
+OUTPUT=$2
+
+OUTPUT_WIDTH=1600
+RESAMPLE_INPUT_FRAME_RATE_TO=10
+OUTPUT_FRAME_RATE=20
+
+COMPRESSION_LEVEL=4  # 0 to 6. default=4
+QSCALE=40  # 0 to 100. default=75
+
+TMPDIR=/tmp/video/$(date '+%s%N')
+
+mkdir -p ${TMPDIR}
+
+# Convert video to frames.
+ffmpeg -i ${INPUT} -r ${RESAMPLE_INPUT_FRAME_RATE_TO} -vf scale=${OUTPUT_WIDTH}:-1 "${TMPDIR}/frame_%010d.png"
+
+# Convert frames to video
+ffmpeg -framerate ${OUTPUT_FRAME_RATE} -i "${TMPDIR}/frame_%010d.png" -lossless 0 -compression_level ${COMPRESSION_LEVEL} -qscale ${QSCALE} -loop 0 ${OUTPUT}.webp

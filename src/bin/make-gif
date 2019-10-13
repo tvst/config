@@ -1,0 +1,37 @@
+#!/bin/sh
+
+INPUT=$1
+OUTPUT=$2
+
+OUTPUT_WIDTH=800
+RESAMPLE_INPUT_FRAME_RATE_TO=2
+OUTPUT_FRAME_RATE=10  # So we'll double the video speed.
+
+TMPDIR=/tmp/gif/$(date '+%s%N')
+
+mkdir -p ${TMPDIR}
+
+# Convert video to frames.
+ffmpeg \
+  -i ${INPUT} \
+  -r ${RESAMPLE_INPUT_FRAME_RATE_TO} \
+  -vf scale=${OUTPUT_WIDTH}:-1 \
+  "${TMPDIR}/frame_%010d.png"
+
+# Create a palette, so the gif looks good.
+ffmpeg \
+  -v 0 \
+  -i "${TMPDIR}/frame_%010d.png" \
+  -vf palettegen \
+  -y \
+  ${TMPDIR}/palette.png
+
+# Convert frames to gif.
+ffmpeg \
+  -v 0 \
+  -framerate ${OUTPUT_FRAME_RATE} \
+  -i "${TMPDIR}/frame_%010d.png" \
+  -i ${TMPDIR}/palette.png \
+  -lavfi paletteuse \
+  -y \
+  ${OUTPUT}
