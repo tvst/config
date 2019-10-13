@@ -11,15 +11,17 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'                " The package manager itself
 
 Plugin 'editorconfig/editorconfig-vim'    " Add support for editorconfig files
+Plugin 'junegunn/fzf'                     " FuzzyFinder base
+Plugin 'junegunn/fzf.vim'                 " FuzzyFinder commands
 Plugin 'junegunn/vim-easy-align'          " Aligns tables, etc
 Plugin 'nathanaelkane/vim-indent-guides'  " Makes indentation visible
 Plugin 'rking/ag.vim'                     " Helper for searching files with Ag
 Plugin 'sjl/gundo.vim'                    " Undo tree navigator
 Plugin 'sjl/splice.vim.git'               " Better 3-way diff
-Plugin 'tpope/vim-abolish'                " Case-smart find-and-replace
-Plugin 'tpope/vim-commentary'             " Helper for dealing with comments
+Plugin 'tpope/vim-abolish'                " Case-aware substitution, snake/camel renaming, etc.
+Plugin 'tpope/vim-commentary'             " Comment stuff out with gc[motion]
 Plugin 'tpope/vim-fugitive'               " Git helper
-Plugin 'tpope/vim-tbone'                  " Case-smart find-and-replace
+Plugin 'tpope/vim-tbone'                  " Tmux :Twrite, :Tyank, :Tput
 Plugin 'w0rp/ale'                         " Linter
 Plugin 'will133/vim-dirdiff'              " Helps diff folders
 
@@ -195,7 +197,6 @@ set tabline=%!MyTabLine()
 " Custom key mappings {{{1
 
 " Easier access to common commands
-map <leader>b :b 
 map <leader>q :q<cr>
 map <leader>t :tabe<cr>
 
@@ -231,6 +232,11 @@ map <silent> <leader>d :diffthis<cr>
 map <silent> <leader>du :diffupdate<cr>
 map <silent> <leader>dd :diffoff<cr>
 
+" Mappings for fzf
+map <leader>b :Buffers<cr>
+map <leader>f :Files<cr>
+map <leader>gf :GFiles<cr>
+
 " ALE linter mappins
 map <silent> <leader>a :ALEToggle<cr>
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
@@ -249,10 +255,12 @@ map <silent> <leader>u :GundoToggle<cr>
 map <silent> <leader>i :IndentGuidesToggle<cr>
 
 " Fugitive plugin mappings
-map <silent> <leader>s :vertical Gstatus<cr>
-map <silent> <leader>g :Gdiff<cr>
-map <silent> <leader>o :Glog<cr>
-map <silent> <leader>oo :0Glog<cr>
+map <silent> <leader>gs :vertical Gstatus<cr>
+map <silent> <leader>gd :Gdiff<cr>
+map <silent> <leader>gll :Glog<cr>
+map <silent> <leader>gl :0Glog<cr>
+map <silent> <leader>gb :Gblame<cr>
+map <silent> <leader>gr :Gread<cr>
 
 " Keymaps for Substitute command (delete and paste).
 vmap S "_dP
