@@ -133,6 +133,22 @@ hi! link ShowMarksHLu ShowMarkHLl
 hi! link ShowMarksHLo ShowMarkHLl
 hi! link ShowMarksHLm ShowMarkHLl
 
+" fzf plugin {{{1
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'PreProc'],
+  \ 'info':    ['fg', 'Comment'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Cursor'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
 " Indent guides {{{1
 hi! IndentGuidesOdd   gui=NONE guifg=NONE guibg=NONE cterm=NONE ctermfg=NONE ctermbg=NONE
 hi! IndentGuidesEven  gui=NONE guifg=NONE guibg=#262626 cterm=NONE ctermfg=NONE ctermbg=235
