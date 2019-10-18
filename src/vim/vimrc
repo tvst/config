@@ -197,6 +197,7 @@ set tabline=%!MyTabLine()
 " Custom key mappings {{{1
 
 " Easier access to common commands
+map :W :w
 map <leader>q :q<cr>
 map <leader>t :tabe<cr>
 
