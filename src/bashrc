@@ -28,9 +28,7 @@ alias conda-load='source /home/tvst/.miniconda2/etc/profile.d/conda.sh'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-export PATH="$PATH:/home/tvst/.bin"
-export PATH="$PATH:/home/tvst/.cargo/bin"  # Rust package manager
-# export PATH="~/.pyenv/bin:$PATH"
+export PATH="/home/tvst/.local/bin:$PATH"
 
 # Don't leave this uncommented!
 if [ "$SOURCE_CONDA" == "TRUE" ]; then
@@ -39,5 +37,5 @@ if [ "$SOURCE_CONDA" == "TRUE" ]; then
 fi
 
 # Don't run magic Pyenv commands.
-#eval "$(pyenv init -)"
+eval "$(pyenv init -)"
 #eval "$(pyenv virtualenv-init -)"
