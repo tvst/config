@@ -1,3 +1,13 @@
 [user]
-	email = thiago@streamlit.io
-	name = Thiago Teixeira
+email = thiago@streamlit.io
+name = Thiago Teixeira
+
+[credential]
+helper = cache
+
+[merge]
+tool = splice
+
+[mergetool "splice"]
+cmd = "nvim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
+trustExitCode = true
