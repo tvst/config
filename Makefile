@@ -2,7 +2,11 @@
 new-machine-setup: all vundle
 
 .PHONY: all
-all: vim nvim tmux fish bash bin fff
+all: git vim nvim tmux fish bash bin fff
+
+.PHONY: git
+git:
+	ln -s ${PWD}/src/.gitconfig ~/.gitconfig
 
 .PHONY: vim
 vim:
