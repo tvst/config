@@ -3,7 +3,7 @@ email = thiago@streamlit.io
 name = Thiago Teixeira
 
 [credential]
-helper = cache
+helper = cache --timeout=86400
 
 [merge]
 tool = splice
