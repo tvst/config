@@ -26,7 +26,7 @@ hi Comment        gui=NONE guifg=#af8787 guibg=NONE cterm=NONE ctermfg=138 cterm
 hi Constant       gui=NONE guifg=#5fd7ff guibg=NONE cterm=NONE ctermfg=81 ctermbg=NONE
 hi Error          gui=BOLD guifg=#ffffff guibg=#d70000 cterm=BOLD ctermfg=254 ctermbg=160
 hi Function       gui=BOLD guifg=#d7005f guibg=NONE cterm=BOLD ctermfg=161 ctermbg=NONE
-hi Identifier     gui=BOLD guifg=#d7005f guibg=NONE cterm=BOLD ctermfg=210 ctermbg=NONE
+hi Identifier     gui=BOLD guifg=#ff8787 guibg=NONE cterm=BOLD ctermfg=210 ctermbg=NONE
 hi Ignore         gui=NONE guifg=#303030 guibg=NONE cterm=NONE ctermfg=236 ctermbg=NONE
 hi Keyword        gui=BOLD guifg=#d7005f guibg=NONE cterm=BOLD ctermfg=161 ctermbg=NONE
 hi Normal         gui=NONE guifg=#eeeeee guibg=NONE cterm=NONE ctermfg=254 ctermbg=NONE
@@ -43,37 +43,3 @@ hi Character gui=BOLD guifg=#dfff87 guibg=NONE cterm=BOLD ctermfg=192 ctermbg=NO
 hi Number    gui=NONE guifg=#dfff87 guibg=NONE cterm=NONE ctermfg=192 ctermbg=NONE
 hi Float     gui=NONE guifg=#5fffaf guibg=NONE cterm=NONE ctermfg=85 ctermbg=NONE
 hi link Boolean Number
-
-" Make braces, parentheses, and brackets easier to tell apart.
-hi link javaScriptParens Identifier
-hi link javaScriptBraces Function
-hi link javaScriptIdentifier Statement
-hi link javaBraces Function
-
-" Make functions easier to find.
-"let java_highlight_all=1
-let java_highlight_functions="style"
-hi link javaScriptFunction Function
-hi link javaFuncDef Special
-"hi link javaExceptions Function
-
-" Make docstrings and docstring tags more similar to comments.
-hi link SpecialComment Comment
-hi javaDocTags gui=NONE guifg=#af87af guibg=NONE cterm=NONE ctermfg=139 ctermbg=NONE
-hi link javaDocParam javaDocTags
-hi link javaDocSeeTagParam Comment
-hi link javaCommentTitle Comment
-
-" Typescript JSX
-hi link xmlTag Function
-hi link xmlTagName xmlTag
-hi link htmlTag xmlTag
-hi link htmlTagName xmlTag
-hi link xmlEndTag xmlTag
-hi link htmlEndTag xmlTag
-hi link tsxAttributeBraces String
-hi link tsxAttrib Statement
-hi link ReactState Special
-hi link ReactProps Special
-hi link Events Special
-hi link ReactLifeCycleMethods Keyword

@@ -62,7 +62,6 @@ let colors_name = "minichrome"
 hi! Normal       gui=NONE guifg=#e4e4e4 guibg=#121212 cterm=NONE ctermfg=NONE ctermbg=NONE
 "hi! Normal       gui=NONE guifg=#e4e4e4 guibg=#121212 cterm=NONE ctermfg=254 ctermbg=233
 
-
 " Search {{{1
 hi! IncSearch    gui=NONE guifg=#5fffff guibg=#0087af cterm=NONE ctermfg=87 ctermbg=31
 hi! Search       gui=NONE guifg=#ffafff guibg=#d7005f cterm=NONE ctermfg=219 ctermbg=161
@@ -95,16 +94,18 @@ hi! Visual       gui=NONE guifg=#5fffff guibg=#0087af cterm=NONE ctermfg=87 cter
 hi! link VisualNOS Visual
 hi! CursorLine   gui=NONE guifg=NONE guibg=#262626 cterm=NONE ctermfg=NONE ctermbg=235
 
+" Gutter {{{1
+hi! LineNr       gui=NONE guifg=#585858 guibg=NONE cterm=NONE ctermfg=240 ctermbg=NONE
+hi! CursorLineNr gui=NONE guifg=#bcbcbc guibg=#262626 cterm=NONE ctermfg=250 ctermbg=235
+hi! link SignColumn LineNr
+
 " Fold {{{1
-hi! Folded       gui=NONE guifg=#8a8a8a guibg=NONE cterm=NONE ctermfg=245 ctermbg=NONE
-hi! FoldColumn   gui=NONE guifg=#8a8a8a guibg=NONE cterm=NONE ctermfg=245 ctermbg=NONE
+hi! Folded       gui=BOLD guifg=#8a8a8a guibg=NONE cterm=BOLD ctermfg=96 ctermbg=NONE
+hi! link FoldColumn LineNr
 
 " Other {{{1
 hi! Directory    gui=NONE guifg=#afd7ff guibg=NONE cterm=NONE ctermfg=153 ctermbg=NONE
-hi! LineNr       gui=NONE guifg=#585858 guibg=NONE cterm=NONE ctermfg=240 ctermbg=NONE
-hi! CursorLineNr gui=NONE guifg=#bcbcbc guibg=#262626 cterm=NONE ctermfg=250 ctermbg=235
 hi! link NonText LineNr
-hi! link SignColumn LineNr
 
 " Used for hidden chars {{{1
 hi! SpecialKey   gui=BOLD guifg=#ffd700 guibg=NONE cterm=BOLD ctermfg=220 ctermbg=NONE

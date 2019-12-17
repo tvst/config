@@ -287,4 +287,5 @@ command! -range -nargs=0 -bar PrettifyJson <line1>,<line2>!python -m json.tool
 " Color scheme {{{1
 " For some reason this doesn't work unless it's at the end :-/
 colorscheme neoneon
+colorscheme syntax
 colorscheme minichrome
