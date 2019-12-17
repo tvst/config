@@ -72,3 +72,6 @@ set -gx NODE_OPTIONS '--max_old_space_size=4096'
 set -gx PATH /home/tvst/.app/flutter/bin $PATH
 set -gx PATH /home/tvst/.cargo/bin $PATH
 set -gx PATH /home/tvst/.bin $PATH
+
+# Conda
+alias conda-load 'source /home/tvst/.miniconda2/etc/fish/conf.d/conda.fish'
