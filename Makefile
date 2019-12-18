@@ -2,7 +2,7 @@
 new-machine-setup: all vundle
 
 .PHONY: all
-all: git vim nvim tmux fish bash bin fff
+all: git vim nvim tmux fish bash bin fff sauce_code_pro
 
 .PHONY: git
 git:
@@ -57,3 +57,12 @@ fff:
 	cd fff; \
 		sudo make install
 	rm -rf fff
+
+.PHONY: sauce_code_pro
+sauce_code_pro:
+	mkdir -p ~/.fonts/Sauce_Code_Pro
+	cd ~/.fonts/Sauce_Code_Pro; \
+		wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/SourceCodePro.zip; \
+		unzip SourceCodePro.zip; \
+		rm *.zip
+	fc-cache -f
