@@ -21,22 +21,19 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias v='nvim'
+alias o='xdg-open'
 alias t='tmux attach || tmux'
-alias conda-load='source ~/.miniconda2/etc/profile.d/conda.sh'
+alias e='v -c :Explore'
+alias conda-load='source /home/tvst/.miniconda3/etc/profile.d/conda.sh'
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-export PATH="~/.pyenv/bin:$PATH"
-export PATH="~/.local/bin:$PATH"
+export PATH="/home/tvst/.pyenv/bin:$PATH"
+export PATH="/home/tvst/.local/bin:$PATH"
 
 # Don't leave this uncommented!
 if [ "$SOURCE_CONDA" == "TRUE" ]; then
   echo '(Sourcing Conda)'
-  source ~/.miniconda2/etc/profile.d/conda.sh
+  source /home/tvst/.miniconda2/etc/profile.d/conda.sh
 fi
 
-# Don't run magic Pyenv commands.
 eval "$(pyenv init -)"
 #eval "$(pyenv virtualenv-init -)"
