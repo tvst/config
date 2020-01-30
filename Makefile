@@ -2,7 +2,7 @@
 new-machine-setup: all vundle
 
 .PHONY: all
-all: git vim nvim tmux fish bash bin fff sauce_code_pro
+all: git vim nvim tmux fish bash bin fff emoji-config
 
 .PHONY: git
 git:
@@ -58,11 +58,8 @@ fff:
 		sudo make install
 	rm -rf fff
 
-.PHONY: sauce_code_pro
-sauce_code_pro:
-	mkdir -p ~/.fonts/Sauce_Code_Pro
-	cd ~/.fonts/Sauce_Code_Pro; \
-		wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/SourceCodePro.zip; \
-		unzip SourceCodePro.zip; \
-		rm *.zip
+.PHONY: emoji-config
+emoji-config:
+	mkdir -p ~/.config
+	ln -s ${PWD}/src/config/fontconfig ~/.config/
 	fc-cache -f
