@@ -1,16 +1,14 @@
 # Aliases
 
 alias ls 'ls --color=auto'
+alias ll 'ls -alF'
+alias la 'ls -A'
 alias l 'ls -CF'
-alias L 'ls -A'
-alias ll 'ls -lF'
-alias LL 'ls -alF'
-alias r 'ranger'
-alias c 'ranger-cd'
-alias t 'tmux attach; or tmux'
 alias v 'nvim'
-alias e 'v -c :Explore'
 alias o 'xdg-open'
+alias t 'tmux attach; or tmux'
+alias e 'v -c :Explore'
+alias conda-load 'source /home/tvst/.miniconda3/etc/fish/conf.d/conda.fish'
 
 # Environment variables
 
@@ -61,17 +59,12 @@ set __fish_git_prompt_char_stashstate 's'
 set __fish_git_prompt_char_untrackedfiles 'u'
 
 # PyEnv
-# set -gx PATH '/home/tvst/.pyenv/bin' $PATH
-# status --is-interactive; and source (pyenv init -|psub)
+set -gx PATH '/home/tvst/.pyenv/bin' $PATH
+status --is-interactive; and source (pyenv init -|psub)
 # status --is-interactive; and source (pyenv virtualenv-init -|psub)
 
 # Node
 set -gx NODE_OPTIONS '--max_old_space_size=4096'
 
 # More PATH folders
-set -gx PATH /home/tvst/.app/flutter/bin $PATH
-set -gx PATH /home/tvst/.cargo/bin $PATH
 set -gx PATH /home/tvst/.bin $PATH
-
-# Conda
-alias conda-load 'source /home/tvst/.miniconda2/etc/fish/conf.d/conda.fish'
