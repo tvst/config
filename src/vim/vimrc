@@ -121,6 +121,7 @@ let g:netrw_liststyle=0             " Use narrow navigation
 let g:netrw_winsize=-28             " Width = 28px (negative means absolute)
 let g:netrw_banner=0                " Hide info banner
 let g:netrw_hide=1                  " Hide dotfiles by default. Use gh to toggle.
+let g:netrw_special_syntax=1        " Colorize files by type
 
 " Better markdown hilighting
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
