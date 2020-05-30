@@ -112,10 +112,10 @@ hi! SpecialKey   gui=BOLD guifg=#ffd700 guibg=NONE cterm=BOLD ctermfg=220 ctermb
 hi! WhiteSpace   gui=BOLD guifg=#ffd700 guibg=NONE cterm=BOLD ctermfg=220 ctermbg=NONE
 
 " Diff {{{1
-hi! DiffAdd      gui=BOLD guifg=#dfff00 guibg=#005f00 cterm=BOLD ctermfg=190 ctermbg=22
-hi! DiffDelete   gui=BOLD guifg=#ff8700 guibg=#5f0000 cterm=BOLD ctermfg=208 ctermbg=52
-hi! DiffText     gui=BOLD guifg=#dfff00 guibg=#005f00 cterm=BOLD ctermfg=190 ctermbg=22
-hi! DiffChange   gui=NONE guifg=NONE guibg=#1c1c1c cterm=NONE ctermfg=NONE ctermbg=NONE
+hi! DiffAdd      gui=BOLD guifg=#dfff00 guibg=#005f00 cterm=NONE ctermfg=190 ctermbg=22
+hi! DiffDelete   gui=BOLD guifg=#ff8700 guibg=#5f0000 cterm=NONE ctermfg=208 ctermbg=52
+hi! DiffText     gui=BOLD guifg=#dfff00 guibg=#005f00 cterm=NONE ctermfg=190 ctermbg=22
+hi! DiffChange   gui=NONE guifg=NONE guibg=NONE cterm=NONE ctermfg=NONE ctermbg=NONE
 
 " OmniComplete gui {{{1
 hi! Pmenu        gui=NONE guifg=#e4e4e4 guibg=#3a3a3a cterm=NONE ctermfg=254 ctermbg=237
