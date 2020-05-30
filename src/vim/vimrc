@@ -16,19 +16,14 @@ Plugin 'junegunn/fzf.vim'                 " FuzzyFinder commands
 Plugin 'junegunn/vim-easy-align'          " Aligns tables, etc
 Plugin 'nathanaelkane/vim-indent-guides'  " Makes indentation visible
 Plugin 'rking/ag.vim'                     " Helper for searching files with Ag
+Plugin 'sheerun/vim-polyglot'             " Syntax for a bunch of languages.
 Plugin 'sjl/gundo.vim'                    " Undo tree navigator
-Plugin 'sjl/splice.vim.git'               " Better 3-way diff
-Plugin 'tpope/vim-abolish'                " Case-aware substitution, snake/camel renaming, etc.
+"Plugin 'sjl/splice.vim.git'              " Better 3-way diff
+Plugin 'tpope/vim-abolish'                " Case-aware substitution %S, case renaming crc,crs,crm,cru,cr-,cr.
 Plugin 'tpope/vim-commentary'             " Comment stuff out with gc[motion]
 Plugin 'tpope/vim-fugitive'               " Git helper
-Plugin 'tpope/vim-tbone'                  " Tmux :Twrite, :Tyank, :Tput
-Plugin 'w0rp/ale'                         " Linter
 Plugin 'will133/vim-dirdiff'              " Helps diff folders
-
-Plugin 'fatih/vim-go'                     " Go-lang helpers for vim
-Plugin 'leafgarland/typescript-vim'       " TypeScript syntax hilighting
-Plugin 'peitalin/vim-jsx-typescript'      " TypeScript-JSX syntax hilighting
-Plugin 'rhysd/vim-clang-format'           " Code formatter for C-style languages
+Plugin 'rhysd/conflict-marker.vim'        " [x and ]x to navigate conflicts. co,ct,cb,cn to resolve them.
 
 call vundle#end()
 
@@ -50,6 +45,7 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set expandtab                         " Use spaces for tabs
+autocmd FileType go setlocal noexpandtab  " ... except for Golang
 
 " Saving files.
 "set nofsync                          " Don't set this. Stops flushing after save. Bad idea.
@@ -80,7 +76,8 @@ set diffopt+=hiddenoff                " Turn off diff mode for buffers when they
 
 " Invisible chars.
 set list                              " Show invisible chars
-set listchars=tab:\│\ ,trail:␣,nbsp:␣,extends:…,precedes:…
+set listchars=tab:⇥\ ,trail:␣,nbsp:␣,extends:…,precedes:…
+autocmd FileType go setlocal listchars=tab:\ \ ,trail:␣,nbsp:␣,extends:…,precedes:…
 
 " Searching.
 set incsearch                         " Incremental search
@@ -95,8 +92,8 @@ set formatoptions=q                   " See below: (NOTE: had to remove j since 
 "set formatoptions+=q                 " q = Allow use of gq to autowrap comments
 "set formatoptions+=j                 " j = Remove comment leader when joining lines
 set linebreak                         " When wrapping with gq, break lines at word boundaries
-set textwidth=80                      " Max width (see ftplugins)
-set colorcolumn=81                    " Column that should be colored differently (see ftplugin)
+set textwidth=100                     " Max width (see ftplugins)
+set colorcolumn=101                   " Column that should be colored differently (see ftplugin)
 
 " Browsing and opening files.
 set path=.,./**,                      " Where to search for files when using the find and gf commands
@@ -147,6 +144,9 @@ let g:indent_guides_auto_colors=0
 
 " Make GUndo use Python3
 let g:gundo_prefer_python3=1
+
+" Make Conflict Markers not change highlighting
+let g:conflict_marker_enable_highlight = 0
 
 " Delete Fugitive buffers when you leave them.
 autocmd BufReadPost fugitive://* set bufhidden=delete
@@ -243,17 +243,6 @@ map <leader>b :Buffers<cr>
 map <leader>f :Files<cr>
 map <leader>gf :GFiles<cr>
 
-" ALE linter mappins
-map <silent> <leader>a :ALEToggle<cr>
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-"let g:ale_set_loclist=0  " Turn off 'LocList'
-"let g:ale_set_quickfix=1  " Turn on 'Quickfix' instead
-let g:ale_enabled=0
-let g:ale_lint_on_text_changed='never'
-let g:ale_lint_on_enter=1
-let g:ale_lint_on_save=1
-
 " Show/hide Gundo plugin sidebar
 map <silent> <leader>u :GundoToggle<cr>
 
@@ -261,11 +250,11 @@ map <silent> <leader>u :GundoToggle<cr>
 map <silent> <leader>i :IndentGuidesToggle<cr>
 
 " Fugitive plugin mappings
-map <silent> <leader>gs :vertical Gstatus<cr>
-map <silent> <leader>gd :Gdiff<cr>
-map <silent> <leader>gll :Glog<cr>
-map <silent> <leader>gl :0Glog<cr>
-map <silent> <leader>gb :Gblame<cr>
+map <silent> <leader>gs :vertical Git<cr>
+map <silent> <leader>gd :Gdiffsplit<cr>
+map <silent> <leader>gll :Gclog<cr>
+map <silent> <leader>gl :0Gclog<cr>
+map <silent> <leader>gb :Git blame<cr>
 map <silent> <leader>gr :Gread<cr>
 
 " Keymaps for Substitute command (delete and paste).
