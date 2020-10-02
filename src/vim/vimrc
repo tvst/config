@@ -10,7 +10,6 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'                " The package manager itself
 
-Plugin 'editorconfig/editorconfig-vim'    " Add support for editorconfig files
 Plugin 'junegunn/fzf'                     " FuzzyFinder base
 Plugin 'junegunn/fzf.vim'                 " FuzzyFinder commands
 Plugin 'junegunn/vim-easy-align'          " Aligns tables, etc
@@ -197,9 +196,13 @@ set tabline=%!MyTabLine()
 " Custom key mappings {{{1
 
 " Easier access to common commands
-map :W :w
 map <leader>q :q<cr>
+map <leader>w :w<cr>
 map <leader>t :tabe<cr>
+map <leader>tt :tabe %<cr>
+map <leader>v :vsp<cr>
+map <leader>s :sp<cr>
+map <leader><leader> <C-^>
 
 " Easy navigation based on fold levels
 nmap <silent> <C-j> zj

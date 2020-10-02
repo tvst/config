@@ -68,3 +68,9 @@ set -gx NODE_OPTIONS '--max_old_space_size=4096'
 
 # More PATH folders
 set -gx PATH /home/tvst/.bin $PATH
+
+# Golang stuff
+set -gx PATH $PATH /usr/local/go/bin
+set -gx GOPRIVATE github.com/streamlit
+set -gx GOPATH (go env GOPATH)
+set -gx PATH $PATH $GOPATH/bin
