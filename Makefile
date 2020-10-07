@@ -2,7 +2,7 @@
 new-machine-setup: all vundle
 
 .PHONY: all
-all: git vim nvim tmux fish bash bin fff emoji-config
+all: git vim nvim tmux fish bash bin fff
 
 .PHONY: git
 git:
@@ -60,6 +60,7 @@ fff:
 
 .PHONY: emoji-config
 emoji-config:
+	# Only needed in some Linuxes. Not Fedora, though.
 	mkdir -p ~/.config
-	ln -s ${PWD}/src/config/fontconfig ~/.config/
-	fc-cache -f
+	ln -s ${PWD}/src/config/fontconfig ~/.fontconfig
+	fc-cache -fv

@@ -38,6 +38,15 @@ hi Todo           gui=BOLD,UNDERLINE guifg=#ff87af guibg=NONE cterm=BOLD,UNDERLI
 hi Type           gui=NONE guifg=#5fafff guibg=NONE cterm=NONE ctermfg=75 ctermbg=NONE
 "hi Underlined    gui=UNDERLINE guifg=fg guibg=NONE cterm=UNDERLINE ctermfg=fg ctermbg=NONE
 
+" Netrw
+hi link netrwDateSep Normal
+hi link netrwTimeSep Normal
+hi link netrwExe Constant
+hi link netrwDir Directory
+hi link netrwClassify Directory
+hi link netrwTreeBar Delimiter
+hi link netrwMarkFile Statement
+
 " Make it easier to spot typos in primitive types.
 hi Character gui=BOLD guifg=#dfff87 guibg=NONE cterm=BOLD ctermfg=192 ctermbg=NONE
 hi Number    gui=NONE guifg=#dfff87 guibg=NONE cterm=NONE ctermfg=192 ctermbg=NONE

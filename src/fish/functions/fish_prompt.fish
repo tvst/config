@@ -29,7 +29,7 @@ function fish_prompt --description "Write out the prompt"
   set_color $fish_color_cwd
 
   # Write time.
-  echo -n (date +%R:%S)' '
+  echo -n (date +%R:%S.%N)' '
 
   # Write current Pyenv
   # set -l pyenv_name (pyenv local ^ /dev/null)
