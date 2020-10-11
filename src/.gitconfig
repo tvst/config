@@ -12,3 +12,8 @@ tool = vimdiff
 [mergetool "splice"]
 cmd = "nvim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
 trustExitCode = true
+[core]
+	quotepath = false
+	commitGraph = true
+[gc]
+	writeCommitGraph = true
