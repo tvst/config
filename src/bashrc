@@ -1,5 +1,5 @@
 # Load Ubuntu's default bashrc.
-source /etc/skel/.bashrc
+#source /etc/skel/.bashrc
 
 # Prompt
 if [ $UID -eq 0 ]
