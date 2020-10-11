@@ -12,7 +12,6 @@ Plugin 'gmarik/Vundle.vim'                " The package manager itself
 
 Plugin 'junegunn/fzf'                     " FuzzyFinder base
 Plugin 'junegunn/fzf.vim'                 " FuzzyFinder commands
-Plugin 'junegunn/vim-easy-align'          " Aligns tables, etc
 Plugin 'nathanaelkane/vim-indent-guides'  " Makes indentation visible
 Plugin 'rking/ag.vim'                     " Helper for searching files with Ag
 Plugin 'sheerun/vim-polyglot'             " Syntax for a bunch of languages.
@@ -104,6 +103,7 @@ set wildignorecase                    " Ignore case for wild completion
 " Editing.
 set backspace=start,indent            " Allow backspace to work over start of insert, and over indents, but not EOLs
 set timeoutlen=300                    " Make backslash shortcuts faster
+set clipboard+=unnamedplus            " Make Neovim always use system clipboard.
 
 " Folding.
 set foldcolumn=0                      " Don't show fold column on left
@@ -211,7 +211,6 @@ nmap <silent> <C-k> zk
 
 " Exploring files and folders (netrw)
 map <silent> <leader>e :Explore<cr>
-map <silent> <leader>ee :Lexplore<cr>
 
 " Easier access to quick-fix window
 map <silent> <leader>c :copen<cr>
