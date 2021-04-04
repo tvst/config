@@ -1,6 +1,5 @@
 # Aliases
 
-alias ls 'ls --color=auto'
 alias ll 'ls -alF'
 alias la 'ls -A'
 alias l 'ls -CF'
@@ -67,6 +66,7 @@ set __fish_git_prompt_char_untrackedfiles 'u'
 # PyEnv
 #set -gx PATH '/home/tvst/.pyenv/bin' $PATH  # Already in bashrc
 status --is-interactive; and source (pyenv init -|psub)
+set -gx PATH /Users/tvst/Library/Python/3.8/bin $PATH
 # status --is-interactive; and source (pyenv virtualenv-init -|psub)
 
 # Node
@@ -81,3 +81,7 @@ set -gx PATH $PATH /usr/local/go/bin
 set -gx GOPRIVATE github.com/streamlit
 set -gx GOPATH (go env GOPATH)
 set -gx PATH $PATH $GOPATH/bin
+
+# Mac C/Python stuff
+set -gx LDFLAGS "-L/usr/local/opt/bzip2/lib -L/usr/local/opt/zlib/lib"
+set -gx CPPFLAGS "-I/usr/local/opt/bzip2/include -I/usr/local/opt/zlib/include"
