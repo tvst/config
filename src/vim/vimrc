@@ -16,8 +16,7 @@ Plugin 'junegunn/vim-easy-align'          " Aligns tables, etc
 Plugin 'nathanaelkane/vim-indent-guides'  " Makes indentation visible
 Plugin 'rking/ag.vim'                     " Helper for searching files with Ag
 Plugin 'sheerun/vim-polyglot'             " Syntax for a bunch of languages.
-Plugin 'sjl/gundo.vim'                    " Undo tree navigator
-"Plugin 'sjl/splice.vim.git'              " Better 3-way diff
+Plugin 'mbbill/undotree'                  " Undo tree navigator
 Plugin 'tpope/vim-abolish'                " Case-aware substitution %S, case renaming crc,crs,crm,cru,cr-,cr.
 Plugin 'tpope/vim-commentary'             " Comment stuff out with gc[motion]
 Plugin 'tpope/vim-fugitive'               " Git helper
@@ -199,8 +198,8 @@ set tabline=%!MyTabLine()
 " Easier access to common commands
 map <leader>q :q<cr>
 map <leader>w :w<cr>
-map <leader>t :tabe<cr>
-map <leader>tt :tabe %<cr>
+map <leader>t :tabe %<cr>
+map <leader>tt :tabe<cr>
 map <leader>v :vsp<cr>
 map <leader>s :sp<cr>
 map <leader><leader> <C-^>
@@ -247,10 +246,10 @@ tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 " Mappings for fzf
 map <leader>b :Buffers<cr>
 map <leader>f :Files<cr>
-map <leader>gf :GFiles<cr>
+map <leader>g :GFiles<cr>
 
-" Show/hide Gundo plugin sidebar
-map <silent> <leader>u :GundoToggle<cr>
+" Show/hide undo tree sidebar
+map <silent> <leader>u :UndotreeToggle<cr>
 
 " Indentguides plugin mappings
 map <silent> <leader>i :IndentGuidesToggle<cr>
