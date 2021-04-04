@@ -10,6 +10,12 @@ alias t 'tmux attach; or tmux'
 alias e 'v -c :Explore'
 alias conda-load 'source /home/tvst/.miniconda3/etc/fish/conf.d/conda.fish'
 
+set nvimLoc (which nvim)
+set vimLoc (which vim)
+alias ogvim $vimLoc
+alias vim $nvimLoc
+alias vimdiff "$nvimLoc -d"
+
 # Environment variables
 
 set -gx fish_greeting
