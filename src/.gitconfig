@@ -5,9 +5,11 @@ name = Thiago Teixeira
 [credential]
 helper = cache --timeout=86400
 
+[fetch]
+prune = true
+
 [merge]
 tool = vimdiff
-#tool = splice
 
 [mergetool "splice"]
 cmd = "nvim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
