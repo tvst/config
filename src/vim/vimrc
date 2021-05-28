@@ -8,8 +8,10 @@ filetype off
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'junegunn/fzf'                     " FuzzyFinder base
-Plug 'junegunn/fzf.vim'                 " FuzzyFinder commands
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
 Plug 'junegunn/vim-easy-align'          " Aligns tables, etc
 Plug 'nathanaelkane/vim-indent-guides'  " Makes indentation visible
 Plug 'rking/ag.vim'                     " Helper for searching files with Ag
@@ -238,13 +240,11 @@ map <silent> <leader>d :diffthis<cr>
 map <silent> <leader>du :diffupdate<cr>
 map <silent> <leader>dd :diffoff<cr>
 
-" Make it easier to close floating windows in neovim
-tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
-
 " Mappings for fzf
-map <leader>b :Buffers<cr>
-map <leader>f :Files<cr>
-map <leader>g :GFiles<cr>
+map <leader>fb :Telescope buffers<cr>
+map <leader>ff :Telescope find_files<cr>
+map <leader>fg :Telescope git_files<cr>
+map <leader>fe :Telescope file_browser<cr>
 
 " Show/hide undo tree sidebar
 map <silent> <leader>u :UndotreeToggle<cr>
