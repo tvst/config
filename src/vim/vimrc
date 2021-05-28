@@ -5,24 +5,23 @@
 
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
 
-Plugin 'gmarik/Vundle.vim'                " The package manager itself
+call plug#begin('~/.vim/plugged')
 
-Plugin 'junegunn/fzf'                     " FuzzyFinder base
-Plugin 'junegunn/fzf.vim'                 " FuzzyFinder commands
-Plugin 'nathanaelkane/vim-indent-guides'  " Makes indentation visible
-Plugin 'rking/ag.vim'                     " Helper for searching files with Ag
-Plugin 'sheerun/vim-polyglot'             " Syntax for a bunch of languages.
-Plugin 'mbbill/undotree'                  " Undo tree navigator
-Plugin 'tpope/vim-abolish'                " Case-aware substitution %S, case renaming crc,crs,crm,cru,cr-,cr.
-Plugin 'tpope/vim-commentary'             " Comment stuff out with gc[motion]
-Plugin 'tpope/vim-fugitive'               " Git helper
-Plugin 'will133/vim-dirdiff'              " Helps diff folders
-Plugin 'rhysd/conflict-marker.vim'        " [x and ]x to navigate conflicts. co,ct,cb,cn to resolve them.
+Plug 'junegunn/fzf'                     " FuzzyFinder base
+Plug 'junegunn/fzf.vim'                 " FuzzyFinder commands
+Plug 'junegunn/vim-easy-align'          " Aligns tables, etc
+Plug 'nathanaelkane/vim-indent-guides'  " Makes indentation visible
+Plug 'rking/ag.vim'                     " Helper for searching files with Ag
+Plug 'sheerun/vim-polyglot'             " Syntax for a bunch of languages.
+Plug 'mbbill/undotree'                  " Undo tree navigator
+Plug 'tpope/vim-abolish'                " Case-aware substitution %S, case renaming crc,crs,crm,cru,cr-,cr.
+Plug 'tpope/vim-commentary'             " Comment stuff out with gc[motion]
+Plug 'tpope/vim-fugitive'               " Git helper
+Plug 'will133/vim-dirdiff'              " Helps diff folders
+Plug 'rhysd/conflict-marker.vim'        " [x and ]x to navigate conflicts. co,ct,cb,cn to resolve them.
 
-call vundle#end()
+call plug#end()
 
 
 " Basic settings {{{1
@@ -102,7 +101,6 @@ set wildignorecase                    " Ignore case for wild completion
 " Editing.
 set backspace=start,indent            " Allow backspace to work over start of insert, and over indents, but not EOLs
 set timeoutlen=300                    " Make backslash shortcuts faster
-set clipboard+=unnamedplus            " Make Neovim always use system clipboard.
 
 " Folding.
 set foldcolumn=0                      " Don't show fold column on left
@@ -210,6 +208,7 @@ nmap <silent> <C-k> zk
 
 " Exploring files and folders (netrw)
 map <silent> <leader>e :Explore<cr>
+map <silent> <leader>ee :Lexplore<cr>
 
 " Easier access to quick-fix window
 map <silent> <leader>c :copen<cr>
@@ -287,3 +286,4 @@ command! -range -nargs=0 -bar PrettifyJson <line1>,<line2>!python -m json.tool
 colorscheme neoneon
 colorscheme syntax
 colorscheme minichrome
+
