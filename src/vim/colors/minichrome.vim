@@ -134,6 +134,16 @@ hi! link ShowMarksHLu ShowMarkHLl
 hi! link ShowMarksHLo ShowMarkHLl
 hi! link ShowMarksHLm ShowMarkHLl
 
+" NetRw {{{1
+hi link netrwDateSep Normal
+hi link netrwTimeSep Normal
+hi link netrwExe Constant
+hi link netrwDir Directory
+hi link netrwClassify Directory
+hi link netrwTreeBar Delimiter
+hi link netrwMarkFile Statement
+
+
 " fzf plugin {{{1
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
