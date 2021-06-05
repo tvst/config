@@ -7,21 +7,29 @@ set nocompatible
 filetype off
 
 call plug#begin('~/.vim/plugged')
+" Then:
+" :PlugInstall
+" :PlugUpdate
 
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-
+Plug 'junegunn/fzf'                     " FuzzyFinder base
+Plug 'junegunn/fzf.vim'                 " FuzzyFinder commands
 Plug 'junegunn/vim-easy-align'          " Aligns tables, etc
 Plug 'nathanaelkane/vim-indent-guides'  " Makes indentation visible
 Plug 'rking/ag.vim'                     " Helper for searching files with Ag
-Plug 'sheerun/vim-polyglot'             " Syntax for a bunch of languages.
+"Plug 'sheerun/vim-polyglot'             " Syntax for a bunch of languages.
 Plug 'mbbill/undotree'                  " Undo tree navigator
 Plug 'tpope/vim-abolish'                " Case-aware substitution %S, case renaming crc,crs,crm,cru,cr-,cr.
 Plug 'tpope/vim-commentary'             " Comment stuff out with gc[motion]
 Plug 'tpope/vim-fugitive'               " Git helper
 Plug 'will133/vim-dirdiff'              " Helps diff folders
 Plug 'rhysd/conflict-marker.vim'        " [x and ]x to navigate conflicts. co,ct,cb,cn to resolve them.
+Plug 'neovim/nvim-lspconfig'            " Language server config
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " Tree-sitter. Better language parsers
+" Then:
+" :TSInstall css bash fish html tsx lua scss json javascript typescript dockerfile go comment jsdoc regex
+" :TSUpdate
+
 
 call plug#end()
 
@@ -107,7 +115,7 @@ set timeoutlen=300                    " Make backslash shortcuts faster
 " Folding.
 set foldcolumn=0                      " Don't show fold column on left
 set foldlevelstart=10000              " Don't fold on start
-set foldmethod=indent
+"set foldmethod=indent
 set foldopen=hor,mark,quickfix,search,tag,undo
 set foldtext=substitute(getline(v:foldstart),'/\\*\\\|\\*/\\\|{{{\\d\\=','','g')
 
@@ -240,11 +248,13 @@ map <silent> <leader>d :diffthis<cr>
 map <silent> <leader>du :diffupdate<cr>
 map <silent> <leader>dd :diffoff<cr>
 
+" Make it easier to close floating windows in neovim
+tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
+
 " Mappings for fzf
-map <leader>fb :Telescope buffers<cr>
-map <leader>ff :Telescope find_files<cr>
-map <leader>fg :Telescope git_files<cr>
-map <leader>fe :Telescope file_browser<cr>
+map <leader>fb :Buffers<cr>
+map <leader>ff :Files<cr>
+map <leader>fg :GFiles<cr>
 
 " Show/hide undo tree sidebar
 map <silent> <leader>u :UndotreeToggle<cr>
@@ -281,9 +291,34 @@ tnoremap <Esc> <C-\><C-n>
 command! -range -nargs=0 -bar PrettifyJson <line1>,<line2>!python -m json.tool
 
 
+" Turn on TreeSitter
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained", or a list of languages
+  highlight = {
+    enable = true,
+    keymaps = {
+        init_selection = "gnn",
+        node_incremental = "grn",
+        scope_incremental = "grc",
+        node_decremental = "grm",
+    },
+  },
+  indent = {
+    enable = true,
+  },
+}
+
+vim.api.nvim_exec([[
+    set foldmethod=expr
+    set foldexpr=nvim_treesitter#foldexpr()
+]], true)
+EOF
+
+
 " Color scheme {{{1
 " For some reason this doesn't work unless it's at the end :-/
 colorscheme neoneon
-colorscheme syntax
+"colorscheme syntax
 colorscheme minichrome
 
