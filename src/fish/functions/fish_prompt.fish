@@ -65,9 +65,9 @@ function fish_prompt --description "Write out the prompt"
   set -l path (echo $PWD | sed -e "s|^$HOME|~|")
   set -l shortpath (prompt_pwd)
 
-  set -l prelen (expr length + $pre)
-  set -l pathlen (expr length + $path)
-  set -l shortpathlen (expr length + $shortpath)
+  set -l prelen (string length $pre)
+  set -l pathlen (string length $path)
+  set -l shortpathlen (string length $shortpath)
 
   set -l remaining (math $COLUMNS - $prelen - 3)
   #set -l remaining (math $COLUMNS - 3)
