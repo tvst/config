@@ -9,13 +9,24 @@ helper = cache --timeout=86400
 prune = true
 
 [merge]
-tool = vimdiff
+conflictStyle = diff3  # For vim_mergetool
+tool = vim_mergetool
 
-[mergetool "splice"]
-cmd = "nvim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
+[mergetool "vim_mergetool"]
+cmd = nvim -f -c "MergetoolStart" "$MERGED" "$BASE" "$LOCAL" "$REMOTE"
 trustExitCode = true
+
+[mergetool "fugitive"]
+cmd = nvim -f -c "Gdiffsplit!" "$MERGED"
+
 [core]
-	quotepath = false
-	commitGraph = true
+quotepath = false
+commitGraph = true
+
 [gc]
-	writeCommitGraph = true
+writeCommitGraph = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

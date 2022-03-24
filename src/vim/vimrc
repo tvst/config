@@ -1,5 +1,5 @@
 " Author: tvst
-" Updated: 2019-01-19
+" Updated: 2020-10-02
 
 " Package manager {{{1
 
@@ -24,6 +24,7 @@ Plug 'tpope/vim-fugitive'               " Git helper
 Plug 'will133/vim-dirdiff'              " Helps diff folders
 Plug 'rhysd/conflict-marker.vim'        " [x and ]x to navigate conflicts. co,ct,cb,cn to resolve them.
 Plug 'neovim/nvim-lspconfig'            " Language server config
+Plug 'samoshkin/vim-mergetool'          " Better merge tool
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " Tree-sitter. Better language parsers
 " Then:
@@ -265,8 +266,8 @@ map <silent> <leader>i :IndentGuidesToggle<cr>
 " Fugitive plugin mappings
 map <silent> <leader>gs :vertical Git<cr>
 map <silent> <leader>gd :Gdiffsplit<cr>
-map <silent> <leader>gll :Gclog<cr>
-map <silent> <leader>gl :0Gclog<cr>
+map <silent> <leader>gll :Gclog!<cr>
+map <silent> <leader>gl :0Gclog!<cr>
 map <silent> <leader>gb :Git blame<cr>
 map <silent> <leader>gr :Gread<cr>
 

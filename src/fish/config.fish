@@ -1,6 +1,6 @@
 # Aliases
 
-alias ls 'ls --color=auto'
+#alias ls 'ls --color=auto'
 alias ll 'ls -alF'
 alias la 'ls -A'
 alias l 'ls -CF'
@@ -66,8 +66,11 @@ set __fish_git_prompt_char_untrackedfiles 'u'
 
 # PyEnv
 #set -gx PATH '/home/tvst/.pyenv/bin' $PATH  # Already in bashrc
-status --is-interactive; and source (pyenv init -|psub)
-# status --is-interactive; and source (pyenv virtualenv-init -|psub)
+pyenv init - | source
+pyenv virtualenv-init - | source
+# Fix PyEnv deps in MacOS
+set -g -x LDFLAGS "$LDFLAGS -L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
+set -g -x CPPFLAGS "$CPPFLAGS -I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include"
 
 # Node
 set -gx NODE_OPTIONS '--max_old_space_size=4096'
