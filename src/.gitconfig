@@ -3,17 +3,23 @@ email = thiago@streamlit.io
 name = Thiago Teixeira
 
 [credential]
-helper = cache --timeout=86400
+helper = /usr/libexec/git-core/git-credential-libsecret # Mac
+#helper = cache --timeout=86400 # Linux
 
 [fetch]
 prune = true
 
 [merge]
-conflictStyle = diff3  # For vim_mergetool
-tool = vim_mergetool
+tool = vimdiff
+#conflictStyle = diff3
+#tool = vim_mergetool
 
 [mergetool "vim_mergetool"]
 cmd = nvim -f -c "MergetoolStart" "$MERGED" "$BASE" "$LOCAL" "$REMOTE"
+trustExitCode = true
+
+[mergetool "splice"]
+cmd = "nvim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
 trustExitCode = true
 
 [mergetool "fugitive"]
@@ -25,8 +31,19 @@ commitGraph = true
 
 [gc]
 writeCommitGraph = true
+
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+required = true
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+
+# This next line include Netlify's Git Credential Helper configuration in your Git configuration.
+# [include]
+# path = /home/tvst/.config/netlify/helper/git-config
+
+[credential "https://streamlit.netlify.app"]
+helper = "netlify"
+
+[credential "https://a055d849-2e74-4243-b33f-2b2c0ff1009f.netlify.app"]
+helper = "netlify"

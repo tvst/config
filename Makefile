@@ -1,11 +1,17 @@
-.PHONY: new-machine-setup
-new-machine-setup: all vundle
+.PHONY: linux
+linux: base bash bin
 
-.PHONY: all
-all: git vim nvim tmux fish bash bin fff
+.PHONY: mac
+mac: base zsh
+
+
+.PHONY: base
+base: git vim nvim tmux fish profile
+
 
 .PHONY: git
 git:
+	rm -f ~/.gitconfig
 	ln -s ${PWD}/src/.gitconfig ~/.gitconfig
 
 .PHONY: vim
@@ -29,6 +35,18 @@ tmux:
 	rm -f ~/.tmux.conf
 	ln -s ${PWD}/src/tmux.conf ~/.tmux.conf
 
+.PHONY: profile
+profile:
+	@# Don't use -r. See above.
+	rm -f ~/.profile
+	ln -s ${PWD}/src/profile ~/.profile
+
+.PHONY: zsh
+zsh:
+	@# Don't use -r. See above.
+	rm -f ~/.zsh
+	ln -s ${PWD}/src/zsh ~/.zsh
+
 .PHONY: bash
 bash:
 	@# Don't use -r. See above.
@@ -41,15 +59,14 @@ fish:
 	rm -f ~/.config/fish
 	ln -s ${PWD}/src/fish ~/.config/fish
 
-.PHONY: vundle
-vundle:
-	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
 .PHONY: bin
 bin:
 	@# Don't use -r. See above.
 	rm -f ~/.bin
 	ln -s ${PWD}/src/bin ~/.bin
+
+
+# Old
 
 .PHONY: fff
 fff:
@@ -57,6 +74,10 @@ fff:
 	cd fff; \
 		sudo make install
 	rm -rf fff
+
+.PHONY: vundle
+vundle:
+	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 .PHONY: emoji-config
 emoji-config:

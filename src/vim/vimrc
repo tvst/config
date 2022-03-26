@@ -1,22 +1,19 @@
 " Author: tvst
-" Updated: 2020-10-02
+
+"set nocompatible                       " NVim is always nocompatible
 
 " Package manager {{{1
-
-set nocompatible
-filetype off
 
 call plug#begin('~/.vim/plugged')
 " Then:
 " :PlugInstall
 " :PlugUpdate
 
-Plug 'junegunn/fzf'                     " FuzzyFinder base
-Plug 'junegunn/fzf.vim'                 " FuzzyFinder commands
+Plug 'nvim-lua/plenary.nvim'            " Useful lua libraries used in telescope
+Plug 'nvim-telescope/telescope.nvim'    " All-in-one command palette
 Plug 'junegunn/vim-easy-align'          " Aligns tables, etc
 Plug 'nathanaelkane/vim-indent-guides'  " Makes indentation visible
 Plug 'rking/ag.vim'                     " Helper for searching files with Ag
-"Plug 'sheerun/vim-polyglot'             " Syntax for a bunch of languages.
 Plug 'mbbill/undotree'                  " Undo tree navigator
 Plug 'tpope/vim-abolish'                " Case-aware substitution %S, case renaming crc,crs,crm,cru,cr-,cr.
 Plug 'tpope/vim-commentary'             " Comment stuff out with gc[motion]
@@ -24,7 +21,7 @@ Plug 'tpope/vim-fugitive'               " Git helper
 Plug 'will133/vim-dirdiff'              " Helps diff folders
 Plug 'rhysd/conflict-marker.vim'        " [x and ]x to navigate conflicts. co,ct,cb,cn to resolve them.
 Plug 'neovim/nvim-lspconfig'            " Language server config
-Plug 'samoshkin/vim-mergetool'          " Better merge tool
+"Plug 'samoshkin/vim-mergetool'          " Better merge tool
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " Tree-sitter. Better language parsers
 " Then:
@@ -72,7 +69,7 @@ set background=dark                   " Hint that the colorscheme being used is 
 "set termguicolors                     " Support true-color
 set number                            " Show line numbers
 set ruler                             " Show current line and column on status bar
-set nocursorline                        " Highlights the current line
+set nocursorline                      " Turns off highlighting the current line
 set laststatus=2                      " Always show the status line
 set selectmode=mouse,key              " Allow going to selectmode using mouse (in GVim)
 set fillchars=fold:\ ,diff:\ ,vert:\ ,stlnc:\ ,stl:\ 
@@ -121,11 +118,11 @@ set foldopen=hor,mark,quickfix,search,tag,undo
 set foldtext=substitute(getline(v:foldstart),'/\\*\\\|\\*/\\\|{{{\\d\\=','','g')
 
 " NetRW file navigator
-let g:netrw_liststyle=0             " Use narrow navigation
-let g:netrw_winsize=-28             " Width = 28px (negative means absolute)
-let g:netrw_banner=0                " Hide info banner
-let g:netrw_hide=1                  " Hide dotfiles by default. Use gh to toggle.
-let g:netrw_special_syntax=1        " Colorize files by type
+let g:netrw_liststyle=0               " Use narrow navigation
+let g:netrw_winsize=-28               " Width = 28px (negative means absolute)
+let g:netrw_banner=0                  " Hide info banner
+let g:netrw_hide=1                    " Hide dotfiles by default. Use gh to toggle.
+let g:netrw_special_syntax=1          " Colorize files by type
 
 " Better markdown hilighting
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
@@ -168,38 +165,38 @@ let g:NetrwIsOpen=0
 
 " Make tabs look like [tab number][:number of panes] [filename]
 " (This is about UI tabs, not the tab character!)
-function! MyTabLine()
-  let s=''
-  for i in range(tabpagenr('$'))
-    let tabnr=i + 1 " range() starts at 0
-    let winnr=tabpagewinnr(tabnr)
-    let buflist=tabpagebuflist(tabnr)
-    let bufnr=buflist[winnr - 1]
-    let bufname=fnamemodify(bufname(bufnr), ':t')
-
-    let s .= '%' . tabnr . 'T'
-    let s .= (tabnr == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
-
-    " Show tab number
-    "let s .= ' ' . tabnr
-
-    " Show buffer name
-    let s .= empty(bufname) ? 'no name' : bufname
-
-    " Show "+" sign if modified
-    let bufmodified=getbufvar(bufnr, "&mod")
-    if bufmodified | let s .= '+' | endif
-
-    " Show window number
-    "let n=tabpagewinnr(tabnr,'$')
-    "if n > 1 | let s .= ':' . n | endif
-
-    let s .= '  '
-  endfor
-  let s .= '%#TabLineFill#'
-  return s
-endfunction
-set tabline=%!MyTabLine()
+"function! MyTabLine()
+"  let s=''
+"  for i in range(tabpagenr('$'))
+"    let tabnr=i + 1 " range() starts at 0
+"    let winnr=tabpagewinnr(tabnr)
+"    let buflist=tabpagebuflist(tabnr)
+"    let bufnr=buflist[winnr - 1]
+"    let bufname=fnamemodify(bufname(bufnr), ':t')
+"
+"    let s .= '%' . tabnr . 'T'
+"    let s .= (tabnr == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
+"
+"    " Show tab number
+"    "let s .= ' ' . tabnr
+"
+"    " Show buffer name
+"    let s .= empty(bufname) ? 'no name' : bufname
+"
+"    " Show "+" sign if modified
+"    let bufmodified=getbufvar(bufnr, "&mod")
+"    if bufmodified | let s .= '+' | endif
+"
+"    " Show window number
+"    "let n=tabpagewinnr(tabnr,'$')
+"    "if n > 1 | let s .= ':' . n | endif
+"
+"    let s .= '  '
+"  endfor
+"  let s .= '%#TabLineFill#'
+"  return s
+"endfunction
+"set tabline=%!MyTabLine()
 
 
 " Custom key mappings {{{1
@@ -252,10 +249,13 @@ map <silent> <leader>dd :diffoff<cr>
 " Make it easier to close floating windows in neovim
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 
-" Mappings for fzf
-map <leader>fb :Buffers<cr>
-map <leader>ff :Files<cr>
-map <leader>fg :GFiles<cr>
+" Mappings for telescope
+map <leader>fb <cmd>:Telescope buffers theme=get_dropdown<cr>
+map <leader>ff <cmd>:Telescope find_files theme=get_dropdown<cr>
+map <leader>fg <cmd>:Telescope git_files theme=get_dropdown<cr>
+map <leader>f/ <cmd>:Telescope live_grep theme=get_dropdown<cr>
+map <leader>fh <cmd>:Telescope help_tags theme=get_dropdown<cr>
+map <leader>ft <cmd>:Telescope treesitter theme=get_dropdown<cr>
 
 " Show/hide undo tree sidebar
 map <silent> <leader>u :UndotreeToggle<cr>
@@ -306,6 +306,9 @@ require'nvim-treesitter.configs'.setup {
     },
   },
   indent = {
+    enable = true,
+  },
+  folding = {
     enable = true,
   },
 }

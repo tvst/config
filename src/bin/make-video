@@ -3,8 +3,8 @@
 INPUT=$1
 OUTPUT=$2
 
-OUTPUT_WIDTH=1600
-RESAMPLE_INPUT_FRAME_RATE_TO=15
+OUTPUT_WIDTH=1920
+RESAMPLE_INPUT_FRAME_RATE_TO=30
 OUTPUT_FRAME_RATE=30
 
 TMPDIR=/tmp/video/$(date '+%s%N')
@@ -12,7 +12,7 @@ TMPDIR=/tmp/video/$(date '+%s%N')
 mkdir -p ${TMPDIR}
 
 # Convert video to frames.
-ffmpeg -i ${INPUT} -r ${RESAMPLE_INPUT_FRAME_RATE_TO} -vf scale=${OUTPUT_WIDTH}:-1 "${TMPDIR}/frame_%010d.png"
+#ffmpeg -i ${INPUT} -r ${RESAMPLE_INPUT_FRAME_RATE_TO} -vf scale=${OUTPUT_WIDTH}:-1 "${TMPDIR}/frame_%010d.png"
 
 # Convert frames to video
 
@@ -23,7 +23,13 @@ ffmpeg -i ${INPUT} -r ${RESAMPLE_INPUT_FRAME_RATE_TO} -vf scale=${OUTPUT_WIDTH}:
 # ffmpeg -i ${INPUT} -vf scale=${OUTPUT_WIDTH}:-1 -c:v libvpx -crf 6 -maxrate 1M -b:v 0.2M ${OUTPUT}.webm
 
 # MP4 from frame. Set up for browsers.
-ffmpeg -framerate ${OUTPUT_FRAME_RATE} -i "${TMPDIR}/frame_%010d.png" -pix_fmt yuv420p -c:v libx264 -movflags +faststart -maxrate 1M -b:v 0.4M ${OUTPUT}.mp4
+#ffmpeg -framerate ${OUTPUT_FRAME_RATE} -i "${TMPDIR}/frame_%010d.png" -pix_fmt yuv420p -c:v libx264 -movflags +faststart -maxrate 1M -b:v 0.4M ${OUTPUT}.mp4
 
 # MP4 from input.
-# ffmpeg -i ${INPUT} -vf scale=${OUTPUT_WIDTH}:-1 -c:v h264 -maxrate 2M -b:v 0.5M ${OUTPUT}.mp4
+# See https://trac.ffmpeg.org/wiki/Encode/H.265
+#ffmpeg -i ${INPUT} -vf scale=${OUTPUT_WIDTH}:-1 -c:v h264 -maxrate 2M -b:v 0.5M ${OUTPUT}.mp4
+
+# MP4 from input.
+# 2-pass algorithm
+ffmpeg -i ${INPUT} -c:v libx264 -movflags +faststart -preset veryslow -tune animation -vf scale=${OUTPUT_WIDTH}:-1 -maxrate 5M -b:v 0.35M -pass 1 -y -f mp4 /dev/null
+ffmpeg -i ${INPUT} -c:v libx264 -movflags +faststart -preset veryslow -tune animation -vf scale=${OUTPUT_WIDTH}:-1 -maxrate 5M -b:v 0.35M -pass 2 ${OUTPUT}.mp4

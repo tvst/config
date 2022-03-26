@@ -1,6 +1,6 @@
 # Aliases
 
-#alias ls 'ls --color=auto'
+alias ls 'ls --color=auto'
 alias ll 'ls -alF'
 alias la 'ls -A'
 alias l 'ls -CF'
@@ -66,21 +66,26 @@ set __fish_git_prompt_char_untrackedfiles 'u'
 
 # PyEnv
 #set -gx PATH '/home/tvst/.pyenv/bin' $PATH  # Already in bashrc
-pyenv init - | source
-pyenv virtualenv-init - | source
+#status --is-interactive; and source (pyenv init -|psub)
+#status --is-interactive; and source (pyenv virtualenv-init -|psub)
 # Fix PyEnv deps in MacOS
-set -g -x LDFLAGS "$LDFLAGS -L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
-set -g -x CPPFLAGS "$CPPFLAGS -I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include"
-
-# Node
-set -gx NODE_OPTIONS '--max_old_space_size=4096'
+set -g -x LDFLAGS "$LDFLAGS -L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib" # Mac
+set -g -x CPPFLAGS "$CPPFLAGS -I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include" # Mac
 
 # More PATH folders
-#set -gx PATH /home/tvst/.bin $PATH  # Already in bashrc
-#set -gx PATH /home/tvst/go/bin $PATH  # Already in bashrc
+#set -gx PATH /home/tvst/.bin $PATH  # Linux. Already in bashrc
+#set -gx PATH /home/tvst/go/bin $PATH  # Linux. Already in bashrc
+#set -gx PATH /home/tvst/.nix-profile/bin $PATH  # Already in bashrc
+
+# Node memory bump
+set -gx NODE_OPTIONS '--max_old_space_size=8192'
 
 # Golang stuff
-set -gx PATH $PATH /usr/local/go/bin
-set -gx GOPRIVATE github.com/streamlit
-set -gx GOPATH (go env GOPATH)
-set -gx PATH $PATH $GOPATH/bin
+#set -gx PATH $PATH /usr/local/go/bin
+#set -gx GOPRIVATE github.com/streamlit
+#set -gx GOPATH (go env GOPATH)
+#set -gx PATH $PATH $GOPATH/bin
+
+# The next line updates PATH for Netlify's Git Credential Helper.
+#test -f '/home/tvst/.config/netlify/helper/path.fish.inc' && source '/home/tvst/.config/netlify/helper/path.fish.inc'
+set -gx PATH $PATH $HOME/.config/netlify/helper/bin

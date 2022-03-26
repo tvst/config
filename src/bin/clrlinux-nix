@@ -1,0 +1,13 @@
+#!/bin/bash
+
+sudo mkdir -p /etc/fonts
+sudo ln -s /usr/share/fonts/fonts.conf /etc/fonts/fonts.conf
+sudo ln -s /usr/share/defaults/etc/hosts /etc/hosts
+sudo ln -s /usr/share/defaults/etc/services /etc/services
+
+sudo mkdir -p /nix
+sudo chown -R tvst /nix
+
+curl -L https://nixos.org/nix/install | sh
+
+curl https://raw.githubusercontent.com/lilyball/nix-env.fish/master/conf.d/nix-env.fish --output ~/.config/fish/conf.d/nix-env.fish
