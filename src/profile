@@ -1,12 +1,18 @@
 # Prompt
-if [ $UID -eq 0 ]
-then
-    # Red prompt for root.
-    PS1='\n\[\e[1;41;37m\]\u@\h:\w\[\e[0m\]\[\e[31m\]\n\$\[\e[0;0m\] '
+if [ -n "$ZSH_VERSION" ]; then
+  prompt_label="%n@%m %~"
+  label_color="%B%F{bold white}%K{cyan}"
+  prompt_symbol="%#"
+  reset_colors="%b%f%k"
+  newline=$'\n'
 else
-    # Teal for other users.
-    PS1='\n\[\e[1;46;37m\]\u@\h:\w\[\e[0m\]\[\e[36m\]\n\$\[\e[0;0m\] '
+  prompt_label="\u@\h:\w"
+  label_color='\[\e[1;46;37m\]'
+  prompt_symbol="$"
+  reset_colors='\[\e[0;0m\]'
+  newline='\n'
 fi
+PS1="$newline$label_color$prompt_label$reset_colors$newline$prompt_symbol "
 
 # ibus settings
 export GTK_IM_MODULE=ibus
