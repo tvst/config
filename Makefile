@@ -2,7 +2,12 @@
 linux: base bash bin
 
 .PHONY: mac
-mac: base zsh
+mac: mac-pkgs base zsh
+
+
+.PHONY: mac-pkgs
+mac-pkgs:
+	brew install tmux fish neovim python@3.10
 
 
 .PHONY: base
@@ -27,6 +32,7 @@ vim:
 nvim:
 	@# Don't use -r. See above.
 	rm -f ~/.config/nvim
+	mkdir -p ~/.config
 	ln -s ~/.vim ~/.config/nvim
 
 .PHONY: tmux
@@ -44,8 +50,8 @@ profile:
 .PHONY: zsh
 zsh:
 	@# Don't use -r. See above.
-	rm -f ~/.zsh
-	ln -s ${PWD}/src/zsh ~/.zsh
+	rm -f ~/.zshrc
+	ln -s ${PWD}/src/zshrc ~/.zshrc
 
 .PHONY: bash
 bash:
