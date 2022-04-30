@@ -1,8 +1,8 @@
 .PHONY: linux
-linux: base bash bin
+linux: base bin
 
 .PHONY: mac
-mac: mac-pkgs base zsh
+mac: mac-pkgs base
 
 
 .PHONY: mac-pkgs
@@ -11,7 +11,7 @@ mac-pkgs:
 
 
 .PHONY: base
-base: git vim nvim tmux fish profile
+base: git vim nvim tmux fish profile bash zsh
 
 
 .PHONY: git
