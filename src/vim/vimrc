@@ -165,38 +165,31 @@ let g:NetrwIsOpen=0
 
 " Make tabs look like [tab number][:number of panes] [filename]
 " (This is about UI tabs, not the tab character!)
-"function! MyTabLine()
-"  let s=''
-"  for i in range(tabpagenr('$'))
-"    let tabnr=i + 1 " range() starts at 0
-"    let winnr=tabpagewinnr(tabnr)
-"    let buflist=tabpagebuflist(tabnr)
-"    let bufnr=buflist[winnr - 1]
-"    let bufname=fnamemodify(bufname(bufnr), ':t')
-"
-"    let s .= '%' . tabnr . 'T'
-"    let s .= (tabnr == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
-"
-"    " Show tab number
-"    "let s .= ' ' . tabnr
-"
-"    " Show buffer name
-"    let s .= empty(bufname) ? 'no name' : bufname
-"
-"    " Show "+" sign if modified
-"    let bufmodified=getbufvar(bufnr, "&mod")
-"    if bufmodified | let s .= '+' | endif
-"
-"    " Show window number
-"    "let n=tabpagewinnr(tabnr,'$')
-"    "if n > 1 | let s .= ':' . n | endif
-"
-"    let s .= '  '
-"  endfor
-"  let s .= '%#TabLineFill#'
-"  return s
-"endfunction
-"set tabline=%!MyTabLine()
+function! MyTabLine()
+  let s=''
+  for i in range(tabpagenr('$'))
+    let tabnr=i + 1 " range() starts at 0
+    let winnr=tabpagewinnr(tabnr)
+    let buflist=tabpagebuflist(tabnr)
+    let bufnr=buflist[winnr - 1]
+    let bufname=fnamemodify(bufname(bufnr), ':t')
+
+    let s .= '%' . tabnr . 'T'
+    let s .= (tabnr == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
+
+    " Show buffer name
+    let s .= empty(bufname) ? 'no name' : bufname
+
+    " Show "+" sign if modified
+    let bufmodified=getbufvar(bufnr, "&mod")
+    if bufmodified | let s .= '+' | endif
+
+    let s .= '  '
+  endfor
+  let s .= '%#TabLineFill#'
+  return s
+endfunction
+set tabline=%!MyTabLine()
 
 
 " Custom key mappings {{{1
