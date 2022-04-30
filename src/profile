@@ -26,20 +26,16 @@ alias v='nvim'
 alias o='xdg-open'
 alias t='tmux attach || tmux'
 alias e='v -c :Explore'
-alias conda-load='source /home/tvst/.miniconda3/etc/profile.d/conda.sh'
 
 export PATH="/home/tvst/.bin:$PATH"
 export PATH="/home/tvst/.pyenv/bin:$PATH"
 export PATH="/home/tvst/.local/bin:$PATH"
-export PATH="/home/tvst/.linuxbrew/bin:$PATH"
 export PATH="/home/tvst/go/bin:$PATH"
 export PATH="/home/tvst/.npm/bin:$PATH"
-
-# Don't leave this uncommented!
-if [ "$SOURCE_CONDA" == "TRUE" ]; then
-  echo '(Sourcing Conda)'
-  source /home/tvst/.miniconda2/etc/profile.d/conda.sh
-fi
+export PATH="/home/tvst/.linuxbrew/bin:$PATH" # Linux
+export PATH="/opt/homebrew/opt/python@3.10/bin:$PATH" # Mac
+export LDFLAGS="-L/opt/homebrew/opt/python@3.10/lib" # Mac
+export PKG_CONFIG_PATH="/opt/homebrew/opt/python@3.10/lib/pkgconfig" # Mac
 
 eval "$(pyenv init -)"
 #eval "$(pyenv virtualenv-init -)"
@@ -47,4 +43,3 @@ eval "$(pyenv init -)"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
