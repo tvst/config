@@ -1,0 +1,50 @@
+# Prompt
+if [ $UID -eq 0 ]
+then
+    # Red prompt for root.
+    PS1='\n\[\e[1;41;37m\]\u@\h:\w\[\e[0m\]\[\e[31m\]\n\$\[\e[0;0m\] '
+else
+    # Teal for other users.
+    PS1='\n\[\e[1;46;37m\]\u@\h:\w\[\e[0m\]\[\e[36m\]\n\$\[\e[0;0m\] '
+fi
+
+# ibus settings
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
+
+# Defaults
+export EDITOR='nvim'
+export VISUAL='nvim'
+export PAGER='less -r'
+
+# Aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias v='nvim'
+alias o='xdg-open'
+alias t='tmux attach || tmux'
+alias e='v -c :Explore'
+alias conda-load='source /home/tvst/.miniconda3/etc/profile.d/conda.sh'
+
+export PATH="/home/tvst/.bin:$PATH"
+export PATH="/home/tvst/.pyenv/bin:$PATH"
+export PATH="/home/tvst/.local/bin:$PATH"
+export PATH="/home/tvst/.linuxbrew/bin:$PATH"
+export PATH="/home/tvst/go/bin:$PATH"
+export PATH="/home/tvst/.npm/bin:$PATH"
+
+# Don't leave this uncommented!
+if [ "$SOURCE_CONDA" == "TRUE" ]; then
+  echo '(Sourcing Conda)'
+  source /home/tvst/.miniconda2/etc/profile.d/conda.sh
+fi
+
+eval "$(pyenv init -)"
+#eval "$(pyenv virtualenv-init -)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
