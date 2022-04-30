@@ -295,7 +295,7 @@ command! -range -nargs=0 -bar PrettifyJson <line1>,<line2>!python -m json.tool
 " Turn on TreeSitter
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained", or a list of languages
+  ensure_installed = "all", -- one of "all", "maintained", or a list of languages
   highlight = {
     enable = true,
     keymaps = {
