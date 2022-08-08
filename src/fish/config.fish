@@ -86,6 +86,10 @@ set -gx NODE_OPTIONS '--max_old_space_size=8192'
 #set -gx GOPATH (go env GOPATH)
 #set -gx PATH $PATH $GOPATH/bin
 
+# Flutter stuff
+set -gx PATH $PATH $HOME/Projects/flutter/bin
+set -gx CHROME_EXECUTABLE /usr/bin/google-chrome-stable
+
 # The next line updates PATH for Netlify's Git Credential Helper.
 #test -f '/home/tvst/.config/netlify/helper/path.fish.inc' && source '/home/tvst/.config/netlify/helper/path.fish.inc'
 set -gx PATH $PATH $HOME/.config/netlify/helper/bin
