@@ -9,6 +9,8 @@ alias o 'xdg-open'
 alias t 'tmux attach; or tmux'
 alias e 'v -c :Explore'
 alias conda-load 'source /home/tvst/.miniconda3/etc/fish/conf.d/conda.fish'
+alias pip-legacy '/Users/tteixeira/.pyenv/shims/pip'
+alias pip '/Users/tteixeira/.cargo/bin/uv pip'
 
 set nvimLoc (which nvim)
 set vimLoc (which vim)

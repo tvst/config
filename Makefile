@@ -4,36 +4,24 @@ linux: base bin
 .PHONY: mac
 mac: mac-pkgs base
 
-
 .PHONY: mac-pkgs
 mac-pkgs:
-	brew install tmux fish neovim python@3.10
-
+	brew install tmux fish neovim python
 
 .PHONY: base
-base: git vim nvim tmux fish profile bash zsh
-
+base: git nvim tmux fish profile bash zsh
 
 .PHONY: git
 git:
 	rm -f ~/.gitconfig
 	ln -s ${PWD}/src/.gitconfig ~/.gitconfig
 
-.PHONY: vim
-vim:
-	@# Don't use -r. Assume it's a symlink.
-	@# If not a symlink, then we don't want to delete anyway.
-	rm -f ~/.vim ~/.vimrc ~/.gvimrc
-	ln -s ${PWD}/src/vim ~/.vim
-	ln -s ~/.vim/vimrc ~/.vimrc
-	ln -s ~/.vim/gvimrc ~/.gvimrc
-
 .PHONY: nvim
-nvim:
+nvim: repos
 	@# Don't use -r. See above.
 	rm -f ~/.config/nvim
 	mkdir -p ~/.config
-	ln -s ~/.vim ~/.config/nvim
+	ln -s ${PWD}/repos/nvim ~/.config/nvim
 
 .PHONY: tmux
 tmux:
@@ -71,23 +59,7 @@ bin:
 	rm -f ~/.bin
 	ln -s ${PWD}/src/bin ~/.bin
 
-
-# Old
-
-.PHONY: fff
-fff:
-	git clone https://github.com/dylanaraps/fff.git
-	cd fff; \
-		sudo make install
-	rm -rf fff
-
-.PHONY: vundle
-vundle:
-	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
-.PHONY: emoji-config
-emoji-config:
-	# Only needed in some Linuxes. Not Fedora, though.
-	mkdir -p ~/.config
-	ln -s ${PWD}/src/config/fontconfig ~/.fontconfig
-	fc-cache -fv
+.PHONY: repos
+repos:
+	cd ${PWD}/repos && git clone https://github.com/tvst/neophile.nvim neophile
+	cd ${PWD}/repos && git clone https://github.com/tvst/nvim-config nvim

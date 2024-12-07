@@ -87,9 +87,9 @@ function fish_prompt --description "Write out the prompt"
     set -l rchars (printf '%.0f' $rchars)
     set -l rstart (math $pathlen - $rchars + 1)
     echo -n $pre
-    echo -n (expr substr + $path 1 $lchars)
+    echo -n (echo $path | cut -b -$lchars)
     echo -n …
-    echo -n (expr substr + $path $rstart $rchars)
+    echo -n (echo $path | cut -b $rstart-)
 
   # If the one-letter path fits, print it.
   else if test $shortpathlen -lt $COLUMNS
