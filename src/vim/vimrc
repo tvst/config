@@ -9,27 +9,45 @@ call plug#begin('~/.vim/plugged')
 " :PlugInstall
 " :PlugUpdate
 
-Plug 'nvim-lua/plenary.nvim'            " Useful lua libraries used in telescope
-Plug 'nvim-telescope/telescope.nvim'    " All-in-one command palette
-Plug 'junegunn/vim-easy-align'          " Aligns tables, etc
-Plug 'nathanaelkane/vim-indent-guides'  " Makes indentation visible
-Plug 'rking/ag.vim'                     " Helper for searching files with Ag
-Plug 'mbbill/undotree'                  " Undo tree navigator
-Plug 'tpope/vim-abolish'                " Case-aware substitution %S, case renaming crc,crs,crm,cru,cr-,cr.
-Plug 'tpope/vim-commentary'             " Comment stuff out with gc[motion]
-Plug 'tpope/vim-fugitive'               " Git helper
-Plug 'will133/vim-dirdiff'              " Helps diff folders
-Plug 'rhysd/conflict-marker.vim'        " [x and ]x to navigate conflicts. co,ct,cb,cn to resolve them.
-Plug 'neovim/nvim-lspconfig'            " Language server config
-"Plug 'samoshkin/vim-mergetool'          " Better merge tool
+Plug 'nvim-lua/plenary.nvim'              " Useful lua libraries used in telescope
+Plug 'nvim-telescope/telescope.nvim'      " All-in-one command palette
+Plug 'junegunn/vim-easy-align'            " Aligns tables, etc
+Plug 'nathanaelkane/vim-indent-guides'    " Makes indentation visible
+Plug 'rking/ag.vim'                       " Helper for searching files with Ag
+Plug 'mbbill/undotree'                    " Undo tree navigator
+Plug 'tpope/vim-abolish'                  " Case-aware substitution %S, case renaming crc,crs,crm,cru,cr-,cr.
+Plug 'tpope/vim-commentary'               " Comment stuff out with gc[motion]
+Plug 'tpope/vim-fugitive'                 " Git helper
+Plug 'will133/vim-dirdiff'                " Helps diff folders
+Plug 'rhysd/conflict-marker.vim'          " [x and ]x to navigate conflicts. co,ct,cb,cn to resolve them.
+Plug 'stevearc/oil.nvim'                  " File explorer that works like a text buffer.
+
+" LSP Support
+"Plug 'neovim/nvim-lspconfig'              " Language server support
+"Plug 'williamboman/mason.nvim'            " Package manager for external tooling
+"Plug 'williamboman/mason-lspconfig.nvim'  " Install LSP external tooling
+
+" Autocompletion
+"Plug 'hrsh7th/nvim-cmp'
+"Plug 'hrsh7th/cmp-buffer'
+"Plug 'hrsh7th/cmp-path'
+"Plug 'saadparwaiz1/cmp_luasnip'
+"Plug 'hrsh7th/cmp-nvim-lsp'
+"Plug 'hrsh7th/cmp-nvim-lua'
+
+"  Snippets
+" Plug 'L3MON4D3/LuaSnip'
+" Plug 'rafamadriz/friendly-snippets'
+
+"Plug 'VonHeikemen/lsp-zero.nvim'          " gl, ]d, [d (view, nav diagnostics). K, gd, gD, gi, go, F2
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " Tree-sitter. Better language parsers
 " Then:
 " :TSInstall css bash fish html tsx lua scss json javascript typescript dockerfile go comment jsdoc regex
 " :TSUpdate
 
-
 call plug#end()
+
 
 
 " Basic settings {{{1
@@ -311,6 +329,24 @@ vim.api.nvim_exec([[
     set foldexpr=nvim_treesitter#foldexpr()
 ]], true)
 EOF
+
+" Set up Oil file explorer
+
+lua <<EOF
+require("oil").setup()
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+EOF
+
+" Set up Language Server
+
+"lua <<EOF
+"local lsp = require('lsp-zero')
+"
+"lsp.preset('recommended')
+"lsp.setup()
+"EOF
+
+
 
 
 " Color scheme {{{1
