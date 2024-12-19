@@ -44,3 +44,10 @@ helper = "netlify"
 
 [credential "https://a055d849-2e74-4243-b33f-2b2c0ff1009f.netlify.app"]
 helper = "netlify"
+
+[credential "https://github.com"]
+	helper = 
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
