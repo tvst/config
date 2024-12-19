@@ -19,7 +19,7 @@ git:
 .PHONY: nvim
 nvim: repos
 	@# Don't use -r. See above.
-	rm -f ~/.config/nvim
+	rm -f ~/.config/nvim ~/.cache/nvim
 	mkdir -p ~/.config
 	ln -s ${PWD}/repos/nvim ~/.config/nvim
 
@@ -60,6 +60,12 @@ bin:
 	ln -s ${PWD}/src/bin ~/.bin
 
 .PHONY: repos
-repos:
+repos: repos/neophile/README.md repos/nvim/init.lua
+
+repos/neophile/README.md:
+	mkdir -p ${PWD}/repos
 	cd ${PWD}/repos && git clone https://github.com/tvst/neophile.nvim neophile
+
+repos/nvim/init.lua:
+	mkdir -p ${PWD}/repos
 	cd ${PWD}/repos && git clone https://github.com/tvst/nvim-config nvim
