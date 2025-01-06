@@ -68,7 +68,7 @@ set __fish_git_prompt_char_untrackedfiles 'u'
 
 # PyEnv
 #set -gx PATH '/home/tvst/.pyenv/bin' $PATH  # Already in bashrc
-#status --is-interactive; and source (pyenv init -|psub)
+status --is-interactive; and source (pyenv init -|psub)
 #status --is-interactive; and source (pyenv virtualenv-init -|psub)
 # Fix PyEnv deps in MacOS
 set -g -x LDFLAGS "$LDFLAGS -L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib" # Mac
@@ -82,6 +82,10 @@ set -g -x CPPFLAGS "$CPPFLAGS -I/usr/local/opt/zlib/include -I/usr/local/opt/bzi
 # Node memory bump
 set -gx NODE_OPTIONS '--max_old_space_size=8192'
 
+# To use another version of node:
+# brew install node@20
+# fish_add_path /opt/homebrew/opt/node@20/bin
+
 # Golang stuff
 #set -gx PATH $PATH /usr/local/go/bin
 #set -gx GOPRIVATE github.com/streamlit
@@ -91,3 +95,14 @@ set -gx NODE_OPTIONS '--max_old_space_size=8192'
 # The next line updates PATH for Netlify's Git Credential Helper.
 #test -f '/home/tvst/.config/netlify/helper/path.fish.inc' && source '/home/tvst/.config/netlify/helper/path.fish.inc'
 set -gx PATH $PATH $HOME/.config/netlify/helper/bin
+# Mac only:
+. /opt/homebrew/lib/node_modules/netlify-cli/scripts/fish.sh
+
+# The next line updates PATH for Netlify's Git Credential Helper.
+test -f '/Users/tteixeira/Library/Preferences/netlify/helper/path.fish.inc' && source '/Users/tteixeira/Library/Preferences/netlify/helper/path.fish.inc'
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+#eval /Users/tteixeira/miniconda3/bin/conda "shell.fish" "hook" $argv | source
+# <<< conda initialize <<<
+

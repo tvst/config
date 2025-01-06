@@ -51,7 +51,7 @@ bash:
 fish:
 	@# Don't use -r. See above.
 	rm -f ~/.config/fish
-	ln -s ${PWD}/src/fish ~/.config/fish
+	ln -s ${PWD}/src/config/fish ~/.config/fish
 
 .PHONY: bin
 bin:
