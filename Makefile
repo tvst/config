@@ -83,10 +83,13 @@ iosevka-requirements:
 repos: repos/neophile repos/nvim repos/iosevka
 
 repos/neophile:
+	mkdir ${PWD}/repos
 	cd ${PWD}/repos && git clone https://github.com/tvst/neophile.nvim neophile
 
 repos/nvim:
+	mkdir ${PWD}/repos
 	cd ${PWD}/repos && git clone https://github.com/tvst/nvim-config nvim
 
 repos/iosevka:
+	mkdir ${PWD}/repos
 	cd ${PWD}/repos && git clone --depth 1 https://github.com/be5invis/Iosevka.git iosevka
