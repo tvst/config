@@ -18,7 +18,7 @@ base: git nvim tmux profile zsh bash fish ghostty
 .PHONY: git
 git:
 	rm -f ~/.gitconfig
-	ln -s ${PWD}/src/.gitconfig ~/.gitconfig
+	ln -s ${PWD}/src/gitconfig ~/.gitconfig
 
 .PHONY: nvim
 nvim: repos

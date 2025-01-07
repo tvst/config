@@ -1,5 +1,5 @@
 [user]
-email = thiago@streamlit.io
+email = thiago.teixeira@snowflake.com
 name = Thiago Teixeira
 
 [credential]
@@ -36,11 +36,20 @@ smudge = git-lfs smudge -- %f
 process = git-lfs filter-process
 
 # This next line include Netlify's Git Credential Helper configuration in your Git configuration.
-# [include]
-# path = /home/tvst/.config/netlify/helper/git-config
+[include]
+#path = /home/tvst/.config/netlify/helper/git-config
+path = /Users/tteixeira/Library/Preferences/netlify/helper/git-config
 
 [credential "https://streamlit.netlify.app"]
 helper = "netlify"
 
 [credential "https://a055d849-2e74-4243-b33f-2b2c0ff1009f.netlify.app"]
 helper = "netlify"
+
+[credential "https://github.com"]
+helper = !/opt/homebrew/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+helper = !/opt/homebrew/bin/gh auth git-credential
+[init]
+	templateDir = /Users/tteixeira/.git-template
