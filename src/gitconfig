@@ -48,8 +48,11 @@ helper = "netlify"
 
 [credential "https://github.com"]
 helper = !/opt/homebrew/bin/gh auth git-credential
+#helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
 
 [credential "https://gist.github.com"]
 helper = !/opt/homebrew/bin/gh auth git-credential
+#helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+
 [init]
-	templateDir = /Users/tteixeira/.git-template
+templateDir = /Users/tteixeira/.git-template

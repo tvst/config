@@ -1,9 +1,10 @@
 src/fish/functions/st-*
 src/fish/fishd.*
-
 src/vim/bundle
 src/vim/cache
 src/vim/doc
 src/vim/tags
 src/vim/view
 src/vim/.netrw*
+src/bin/*/
+node_modules

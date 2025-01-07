@@ -23,7 +23,7 @@ git:
 .PHONY: nvim
 nvim: repos
 	@# Don't use -r. See above.
-	rm -f ~/.config/nvim
+	rm -f ~/.config/nvim ~/.cache/nvim
 	mkdir -p ~/.config
 	ln -s ${PWD}/repos/nvim ~/.config/nvim
 

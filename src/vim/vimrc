@@ -1,0 +1,357 @@
+" Author: tvst
+
+"set nocompatible                       " NVim is always nocompatible
+
+" Package manager {{{1
+
+call plug#begin('~/.vim/plugged')
+" Then:
+" :PlugInstall
+" :PlugUpdate
+
+Plug 'nvim-lua/plenary.nvim'              " Useful lua libraries used in telescope
+Plug 'nvim-telescope/telescope.nvim'      " All-in-one command palette
+Plug 'junegunn/vim-easy-align'            " Aligns tables, etc
+Plug 'nathanaelkane/vim-indent-guides'    " Makes indentation visible
+Plug 'rking/ag.vim'                       " Helper for searching files with Ag
+Plug 'mbbill/undotree'                    " Undo tree navigator
+Plug 'tpope/vim-abolish'                  " Case-aware substitution %S, case renaming crc,crs,crm,cru,cr-,cr.
+Plug 'tpope/vim-commentary'               " Comment stuff out with gc[motion]
+Plug 'tpope/vim-fugitive'                 " Git helper
+Plug 'will133/vim-dirdiff'                " Helps diff folders
+Plug 'rhysd/conflict-marker.vim'          " [x and ]x to navigate conflicts. co,ct,cb,cn to resolve them.
+Plug 'stevearc/oil.nvim'                  " File explorer that works like a text buffer.
+
+" LSP Support
+"Plug 'neovim/nvim-lspconfig'              " Language server support
+"Plug 'williamboman/mason.nvim'            " Package manager for external tooling
+"Plug 'williamboman/mason-lspconfig.nvim'  " Install LSP external tooling
+
+" Autocompletion
+"Plug 'hrsh7th/nvim-cmp'
+"Plug 'hrsh7th/cmp-buffer'
+"Plug 'hrsh7th/cmp-path'
+"Plug 'saadparwaiz1/cmp_luasnip'
+"Plug 'hrsh7th/cmp-nvim-lsp'
+"Plug 'hrsh7th/cmp-nvim-lua'
+
+"  Snippets
+" Plug 'L3MON4D3/LuaSnip'
+" Plug 'rafamadriz/friendly-snippets'
+
+"Plug 'VonHeikemen/lsp-zero.nvim'          " gl, ]d, [d (view, nav diagnostics). K, gd, gD, gi, go, F2
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " Tree-sitter. Better language parsers
+" Then:
+" :TSInstall css bash fish html tsx lua scss json javascript typescript dockerfile go comment jsdoc regex
+" :TSUpdate
+
+call plug#end()
+
+
+
+" Basic settings {{{1
+
+" The usual.
+set hidden                            " Do not complain when switching buffers
+set t_Co=256                          " Set 256 color terminal
+set shell=/bin/bash                   " Set ! to bash, since I'm using non-POSIX fish
+filetype plugin on                    " Enable loading files from ftplugin/
+syntax on                             " File detection and syntax hilighting
+
+" Indentation.
+"set autoindent                       " Don't set these,
+"set smartindent                      " ...they don't work the way you'd expect.
+filetype indent on                    " Enable filetype-based indent
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab                         " Use spaces for tabs
+autocmd FileType go setlocal noexpandtab  " ... except for Golang
+
+" Saving files.
+"set nofsync                          " Don't set this. Stops flushing after save. Bad idea.
+set nobackup                          " Speed up saving: do not do backup, save, delete backup
+
+" Parenthesis matching.
+set showmatch                         " Shows matching parenthesis
+set matchtime=10                      " How many ms to show the matching parenthesis
+
+" Navigation.
+set whichwrap+=<,>,[,]                " Allow left-right keys to go around breaks
+set scrolloff=3                       " Always show 3 lines above/below cursor when scrolling
+set sidescrolloff=3                   " Always show 10 chars before/after cursor when scrolling sideways
+
+" Interface.
+set background=dark                   " Hint that the colorscheme being used is dark
+"set termguicolors                     " Support true-color
+set number                            " Show line numbers
+set ruler                             " Show current line and column on status bar
+set nocursorline                      " Turns off highlighting the current line
+set laststatus=2                      " Always show the status line
+set selectmode=mouse,key              " Allow going to selectmode using mouse (in GVim)
+set fillchars=fold:\ ,diff:\ ,vert:\ ,stlnc:\ ,stl:\ 
+set diffopt+=vertical                 " Make diffs always open with vertical splits
+set diffopt+=hiddenoff                " Turn off diff mode for buffers when they get hidden
+" Show Git branch in status line:
+"set statusline=%<%f\ %h%m%r%=%{FugitiveHead()}\ \ %-14.(%l,%c%V%)\ %P
+
+" Invisible chars.
+set list                              " Show invisible chars
+set listchars=tab:⇥\ ,trail:␣,nbsp:␣,extends:…,precedes:…
+autocmd FileType go setlocal listchars=tab:\ \ ,trail:␣,nbsp:␣,extends:…,precedes:…
+
+" Searching.
+set incsearch                         " Incremental search
+set ignorecase                        " Set this to ignore case in searches
+set smartcase                         " ...except when the search has an uppercase letter
+set complete=.,w,b,t,i                " Which files to search for ctrl-p/ctrl-n completion
+set nohlsearch " tmp
+
+" Line wrap.
+set nowrap                            " Don't wrap lines unless there's an actual newline character
+set formatoptions=q                   " See below: (NOTE: had to remove j since it's not compatible with 7.3
+"set formatoptions+=q                 " q = Allow use of gq to autowrap comments
+"set formatoptions+=j                 " j = Remove comment leader when joining lines
+set linebreak                         " When wrapping with gq, break lines at word boundaries
+set textwidth=100                     " Max width (see ftplugins)
+set colorcolumn=101                   " Column that should be colored differently (see ftplugin)
+
+" Browsing and opening files.
+set path=.,./**,                      " Where to search for files when using the find and gf commands
+set wildmenu                          " Make Tab completion use a statusbar menu
+set wildmode=full                     " Customize Tab completion
+set wildignore=*.o,*.obj,*.bak,*.exe,*.pyc  " Ignore these files
+set wildignorecase                    " Ignore case for wild completion
+
+" Editing.
+set backspace=start,indent            " Allow backspace to work over start of insert, and over indents, but not EOLs
+set timeoutlen=300                    " Make backslash shortcuts faster
+
+" Folding.
+set foldcolumn=0                      " Don't show fold column on left
+set foldlevelstart=10000              " Don't fold on start
+"set foldmethod=indent
+set foldopen=hor,mark,quickfix,search,tag,undo
+set foldtext=substitute(getline(v:foldstart),'/\\*\\\|\\*/\\\|{{{\\d\\=','','g')
+
+" NetRW file navigator
+let g:netrw_liststyle=0               " Use narrow navigation
+let g:netrw_winsize=-28               " Width = 28px (negative means absolute)
+let g:netrw_banner=0                  " Hide info banner
+let g:netrw_hide=1                    " Hide dotfiles by default. Use gh to toggle.
+let g:netrw_special_syntax=1          " Colorize files by type
+
+" Better markdown hilighting
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+let g:markdown_fenced_languages= ['html', 'python', 'bash=sh']
+let g:markdown_syntax_conceal=0
+
+" Hilight JS files as TS
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+autocmd BufNewFile,BufRead *.ts,*.js set filetype=typescript
+
+
+" Plugin settings {{{1
+
+" ShowMarks plugin settings.
+let g:showmarks_enable=0
+let g:showmarks_textlower=" "
+let g:showmarks_textupper=" "
+let g:showmarks_textother=" "
+let g:showmarks_include="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ."
+
+" Indent guides plugin options.
+let g:indent_guides_auto_colors=0
+
+" Make GUndo use Python3
+let g:gundo_prefer_python3=1
+
+" Make Conflict Markers not change highlighting
+let g:conflict_marker_enable_highlight = 0
+
+" Delete Fugitive buffers when you leave them.
+autocmd BufReadPost fugitive://* set bufhidden=delete
+" Show quickfix window after Fugitive commands that put stuff there.
+autocmd QuickFixCmdPost *Ggrep* cwindow
+
+
+" Functions {{{1
+
+" Better netrw sidebar
+let g:NetrwIsOpen=0
+
+" Make tabs look like [tab number][:number of panes] [filename]
+" (This is about UI tabs, not the tab character!)
+function! MyTabLine()
+  let s=''
+  for i in range(tabpagenr('$'))
+    let tabnr=i + 1 " range() starts at 0
+    let winnr=tabpagewinnr(tabnr)
+    let buflist=tabpagebuflist(tabnr)
+    let bufnr=buflist[winnr - 1]
+    let bufname=fnamemodify(bufname(bufnr), ':t')
+
+    let s .= '%' . tabnr . 'T'
+    let s .= (tabnr == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
+
+    " Show buffer name
+    let s .= empty(bufname) ? 'no name' : bufname
+
+    " Show "+" sign if modified
+    let bufmodified=getbufvar(bufnr, "&mod")
+    if bufmodified | let s .= '+' | endif
+
+    let s .= '  '
+  endfor
+  let s .= '%#TabLineFill#'
+  return s
+endfunction
+set tabline=%!MyTabLine()
+
+
+" Custom key mappings {{{1
+
+" Easier access to common commands
+map <leader>q :q<cr>
+map <leader>w :w<cr>
+map <leader>t :tabe %<cr>
+map <leader>tt :tabe<cr>
+map <leader>v :vsp<cr>
+map <leader>s :sp<cr>
+map <leader><leader> <C-^>
+
+" Easy navigation based on fold levels
+nmap <silent> <C-j> zj
+nmap <silent> <C-k> zk
+
+" Exploring files and folders (netrw)
+map <silent> <leader>e :Explore<cr>
+map <silent> <leader>ee :Lexplore<cr>
+
+" Easier access to quick-fix window
+map <silent> <leader>c :copen<cr>
+map <silent> <leader>cc :cclose<cr>
+map <silent> <leader>] :cnext<cr>
+map <silent> <leader>[ :cprevious<cr>
+
+" Turn on/off search hilight
+map <silent> <leader>h :set hlsearch!<cr>
+
+" Enter/leave paste mode
+map <silent> <leader>p :set paste!<cr>:set paste?<cr>
+
+" Line numbering mappings
+map <silent> <leader>n :set number!<cr>
+map <silent> <leader>nn :set relativenumber!<cr>
+
+" Find lines longer than 80 or 100 chars
+map <silent> <leader>8 /\%>80v.\+<cr>
+map <silent> <leader>0 /\%>100v.\+<cr>
+
+" Cursor mappings
+map <silent> <leader>l :set cursorline!<cr>
+
+" Mappings for diffs
+map <silent> <leader>d :diffthis<cr>
+map <silent> <leader>du :diffupdate<cr>
+map <silent> <leader>dd :diffoff<cr>
+
+" Make it easier to close floating windows in neovim
+tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
+
+" Mappings for telescope
+map <leader>fb <cmd>:Telescope buffers theme=get_dropdown<cr>
+map <leader>ff <cmd>:Telescope find_files theme=get_dropdown<cr>
+map <leader>fg <cmd>:Telescope git_files theme=get_dropdown<cr>
+map <leader>f/ <cmd>:Telescope live_grep theme=get_dropdown<cr>
+map <leader>fh <cmd>:Telescope help_tags theme=get_dropdown<cr>
+map <leader>ft <cmd>:Telescope treesitter theme=get_dropdown<cr>
+
+" Show/hide undo tree sidebar
+map <silent> <leader>u :UndotreeToggle<cr>
+
+" Indentguides plugin mappings
+map <silent> <leader>i :IndentGuidesToggle<cr>
+
+" Fugitive plugin mappings
+map <silent> <leader>gs :vertical Git<cr>
+map <silent> <leader>gd :Gdiffsplit<cr>
+map <silent> <leader>gll :Gclog!<cr>
+map <silent> <leader>gl :0Gclog!<cr>
+map <silent> <leader>gb :Git blame<cr>
+map <silent> <leader>gr :Gread<cr>
+
+" Keymaps for Substitute command (delete and paste).
+vmap S "_dP
+vmap SS "_dP
+nmap SS "_ddP
+nmap Saw "_dawP
+nmap Siw "_diwP
+nmap Sw  "_diwP
+nmap Sap "_dapP
+nmap Sip "_dipP
+nmap Sp  "_dipP
+
+" Remove Ex-mode
+map Q <Nop>
+
+" In Neovim, make ESC leave terminal mode.
+tnoremap <Esc> <C-\><C-n>
+
+" Command to auto-prettify JSON code.
+command! -range -nargs=0 -bar PrettifyJson <line1>,<line2>!python -m json.tool
+
+
+" Turn on TreeSitter
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "all", -- one of "all", "maintained", or a list of languages
+  highlight = {
+    enable = true,
+    keymaps = {
+        init_selection = "gnn",
+        node_incremental = "grn",
+        scope_incremental = "grc",
+        node_decremental = "grm",
+    },
+  },
+  indent = {
+    enable = true,
+  },
+  folding = {
+    enable = true,
+  },
+}
+
+vim.api.nvim_exec([[
+    set foldmethod=expr
+    set foldexpr=nvim_treesitter#foldexpr()
+]], true)
+EOF
+
+" Set up Oil file explorer
+
+lua <<EOF
+require("oil").setup()
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+EOF
+
+" Set up Language Server
+
+"lua <<EOF
+"local lsp = require('lsp-zero')
+"
+"lsp.preset('recommended')
+"lsp.setup()
+"EOF
+
+
+
+
+" Color scheme {{{1
+" For some reason this doesn't work unless it's at the end :-/
+colorscheme neoneon
+"colorscheme syntax
+colorscheme minichrome
+
