@@ -1,0 +1,38 @@
+#font-family = "DejaVuSansM Nerd Font Mono"
+font-family = "Iosevka Tvst"
+font-style = Regular
+font-size = 15
+font-thicken = true
+font-synthetic-style = true
+
+window-width = 160
+window-height = 50
+
+shell-integration = fish
+shell-integration-features = no-cursor
+
+theme = iTerm2 Default
+background = #101010
+foreground = #D0D0D0
+#cursor-color = #D8F838
+cursor-color = #FFFFFF
+
+selection-background = #0078A8
+selection-foreground = #50F8F8
+
+palette = 0=#101010
+palette = 1=#F86060
+palette = 2=#38D090
+palette = 3=#F8E860
+palette = 4=#4880D0
+palette = 5=#B070B0
+palette = 6=#40A0B0
+palette = 7=#E0E0E0
+palette = 8=#606060
+palette = 9=#FF8888
+palette = 10=#58F8B0
+palette = 11=#FFF0A0
+palette = 12=#70C0FF
+palette = 13=#F8C0F8
+palette = 14=#A0EFFF
+palette = 15=#FFFFFF
