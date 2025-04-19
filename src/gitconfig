@@ -56,3 +56,4 @@ helper = !/opt/homebrew/bin/gh auth git-credential
 
 [init]
 templateDir = /Users/tteixeira/.git-template
+	defaultBranch = main

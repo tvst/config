@@ -1,5 +1,6 @@
 #font-family = "DejaVuSansM Nerd Font Mono"
-font-family = "Iosevka Tvst"
+font-family = "Iosevka Tvst Light"
+#font-family = "Iosevka Tvst Standard"
 font-style = Regular
 font-size = 15
 font-thicken = true

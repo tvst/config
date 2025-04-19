@@ -4,13 +4,13 @@ alias ls 'ls --color=auto'
 alias ll 'ls -alF'
 alias la 'ls -A'
 alias l 'ls -CF'
-alias v 'nvim'
-alias o 'xdg-open'
+alias v nvim
+alias o xdg-open
 alias t 'tmux attach; or tmux'
 alias e 'v -c :Explore'
 alias conda-load 'source /home/tvst/.miniconda3/etc/fish/conf.d/conda.fish'
-alias pip-legacy '/Users/tteixeira/.pyenv/shims/pip'
-alias pip '/Users/tteixeira/.cargo/bin/uv pip'
+alias pip-legacy '~/.pyenv/shims/pip'
+alias pip '~/.local/bin/uv pip'
 
 set nvimLoc (which nvim)
 set vimLoc (which vim)
@@ -21,8 +21,8 @@ alias vimdiff "$nvimLoc -d"
 # Environment variables
 
 set -gx fish_greeting
-if test $TERM != 'screen-256color'
-  set -gx TERM xterm-256color
+if test $TERM != screen-256color
+    set -gx TERM xterm-256color
 end
 
 set -gx ANDROID_HOME /home/tvst/.app/Android/Sdk
@@ -51,28 +51,28 @@ set fish_pager_color_description 8a8a8a           # The color of the completion 
 set fish_pager_color_progress 3a3a3a              # The color of the progress bar at the bottom left corner
 
 # Customize prompt colors.
-set fish_color_cwd blue                           # Color of normal prompt.
-set fish_color_cwd_root red                       # Color of root prompt.
-set __fish_git_prompt_color blue                  # Color of git prompt.
+set fish_color_cwd blue # Color of normal prompt.
+set fish_color_cwd_root red # Color of root prompt.
+set __fish_git_prompt_color blue # Color of git prompt.
 
 # Git prompt options.
-set __fish_git_prompt_showdirtystate 'yes'
-set __fish_git_prompt_showstashstate 'yes'
-set __fish_git_prompt_showuntrackedfiles 'yes'
+set __fish_git_prompt_showdirtystate yes
+set __fish_git_prompt_showstashstate yes
+set __fish_git_prompt_showuntrackedfiles yes
 
 # Git prompt status strings.
-set __fish_git_prompt_char_dirtystate 'd'
-set __fish_git_prompt_char_stagedstate 'c'
-set __fish_git_prompt_char_stashstate 's'
-set __fish_git_prompt_char_untrackedfiles 'u'
+set __fish_git_prompt_char_dirtystate d
+set __fish_git_prompt_char_stagedstate c
+set __fish_git_prompt_char_stashstate s
+set __fish_git_prompt_char_untrackedfiles u
 
 # PyEnv
 #set -gx PATH '/home/tvst/.pyenv/bin' $PATH  # Already in bashrc
-status --is-interactive; and source (pyenv init -|psub)
+# status --is-interactive; and source (pyenv init -|psub)
 #status --is-interactive; and source (pyenv virtualenv-init -|psub)
 # Fix PyEnv deps in MacOS
-set -g -x LDFLAGS "$LDFLAGS -L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib" # Mac
-set -g -x CPPFLAGS "$CPPFLAGS -I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include" # Mac
+# set -g -x LDFLAGS "$LDFLAGS -L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib" # Mac
+# set -g -x CPPFLAGS "$CPPFLAGS -I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include" # Mac
 
 # More PATH folders
 #set -gx PATH /home/tvst/.bin $PATH  # Linux. Already in bashrc
@@ -109,4 +109,3 @@ test -f '/Users/tteixeira/Library/Preferences/netlify/helper/path.fish.inc' && s
 # !! Contents within this block are managed by 'conda init' !!
 #eval /Users/tteixeira/miniconda3/bin/conda "shell.fish" "hook" $argv | source
 # <<< conda initialize <<<
-

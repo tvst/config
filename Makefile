@@ -72,7 +72,8 @@ bin:
 .PHONY: iosevka-font
 iosevka-font: repos/iosevka iosevka-requirements
 	cp src/iosevka-tvst.toml ${PWD}/repos/iosevka/private-build-plans.toml
-	cd ${PWD}/repos/iosevka && npm run build -- contents::IosevkaTvst
+	cd ${PWD}/repos/iosevka && npm run build -- contents::IosevkaTvstLight
+	cd ${PWD}/repos/iosevka && npm run build -- contents::IosevkaTvstStandard
 
 .PHONY: iosevka-requirements
 iosevka-requirements:
