@@ -1,4 +1,7 @@
 .PHONY: linux
+nixos: base bin
+
+.PHONY: linux
 linux: linux-brew-pkgs base bin
 
 .PHONY: mac
@@ -77,7 +80,7 @@ iosevka-font: repos/iosevka iosevka-requirements
 
 .PHONY: iosevka-requirements
 iosevka-requirements:
-	brew install node ttfautohint
+	brew install node ttfautohint || true
 	cd ${PWD}/repos/iosevka && npm install
 
 .PHONY: repos
