@@ -31,6 +31,10 @@ function fish_prompt --description "Write out the prompt"
     # Write time.
     echo -n (date +%R:%S.%N)' '
 
+    if test -n "$IN_NIX_SHELL"
+        echo -n '󱄅'
+    end
+
     # Write git prompt.
     __fish_git_prompt '%s '
 
