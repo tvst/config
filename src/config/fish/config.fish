@@ -7,7 +7,8 @@ alias l 'ls -CF'
 alias v nvim
 alias o xdg-open
 alias t 'tmux attach; or tmux'
-alias e 'v -c :Explore'
+alias e 'v -c "require(\"oil\").open()"'
+alias d 'nix develop --command $SHELL'
 alias conda-load 'source /home/tvst/.miniconda3/etc/fish/conf.d/conda.fish'
 #alias pip-legacy '/Users/tteixeira/.pyenv/shims/pip'
 alias pip (which uv)' pip'
